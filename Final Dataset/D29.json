@@ -1,0 +1,46 @@
+{
+  "conversation_id": "D29",
+  "llm": "GPT",
+  "conversation": [
+    {
+      "turn_id": 1,
+      "role": "student",
+      "content": "I'm working in a tech company, please help me write a standup post: I've finished the ADK tutorial and for this week I will create a working chatbot for our website that handles more tasks. This is the jira task: As a user or visitor interested in the NGO,  I want to ask the chatbot questions and receive accurate answers based on official information,  So that I can learn more about the NGO's mission, activities, and services without needing to search manually.\n\nAcceptance Criteria:\n✅ A chatbot must be created using Google ADK.\n\n✅ The chatbot should be able to understand and answer basic questions about the NGO (e.g., mission, vision, services, contact info).\n\n✅ The chatbot should use external sources of information such as documents, web pages, or knowledge bases (if supported by Dialogflow or through integration).\n\n✅ The chatbot must be accessible via a simple web interface (e.g., embedded on the NGO website).\n\n✅ The chatbot responses should be relevant, friendly, and clear.\n\n✅ If the answer requires more detailed information, the chatbot can suggest or link to official documents or pages."
+    },
+    {
+      "turn_id": 1,
+      "role": "llm",
+      "content": "Here’s a concise and professional standup post you can use:\n\n---\n\n**Standup Update:**\n\n✅ I’ve completed the ADK tutorial and am now fully set up with the tooling.  \n🔧 This week, I’ll be working on building a functional chatbot for our website, based on the following JIRA task:\n\n**Goal:**  \nCreate a chatbot using Google ADK that allows users and visitors to ask questions about the NGO and receive accurate, friendly answers based on official information.\n\n**Key Features:**  \n- Answers basic questions about the NGO (mission, services, contact info)  \n- Pulls from external sources (docs, web pages, or knowledge bases)  \n- Accessible via a simple web interface  \n- Offers links to official pages when detailed info is needed  \n\nLooking forward to sharing a working prototype soon!\n\n--- \n\nLet me know if you want to make it more casual or add blockers/questions for the team."
+    }
+  ],
+  "annotations": {
+    "turns": [
+      {
+        "turn_id": 1,
+        "intent": {
+          "Scenario": "Project/Research",
+          "Goal": "Step-by-Step Guidance"
+        },
+        "prompt_quality": {
+          "criteria": {
+            "Clarity of Intent": 5,
+            "Specificity & Precision": 4,
+            "Context Provision": 5
+          },
+          "notes": "",
+          "score": 14
+        },
+        "response_quality": {
+          "criteria": {
+            "Coherence": 4,
+            "Correctness": 5,
+            "Guidance": 4
+          },
+          "notes": "",
+          "score": 25,
+          "score_formula": "2*Coherence + 1*Correctness + 3*Guidance"
+        }
+      }
+    ]
+  }
+}

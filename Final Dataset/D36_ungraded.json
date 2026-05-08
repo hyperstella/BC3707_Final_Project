@@ -1,0 +1,16 @@
+{
+  "conversation_id": "D36",
+  "llm": "GPT",
+  "conversation": [
+    {
+      "turn_id": 1,
+      "role": "student",
+      "content": "Explain what this does: activations = {} # TODO: write hook factory def make_hook(name): def hook(module, input, output): activations[name] = output.detach() return hook # TODO: register on both conv layers model_v1.conv1.register_forward_hook(make_hook('GAT_Layer_1')) model_v1.conv2.register_forward_hook(make_hook('GAT_Layer_2'))"
+    },
+    {
+      "turn_id": 1,
+      "role": "llm",
+      "content": "Think of this as a way to peek inside the model while it’s running.\n\nWhat this code does (simple idea)\n👉 It saves what each GAT layer “outputs” during the forward pass\n👉 So you can later visualize it (heatmaps)\n\nLine by line\n1. Create a storage box\nactivations = {}\nA dictionary to store results like:\n\"GAT_Layer_1\" → output of layer 1\n\"GAT_Layer_2\" → output of layer 2\n\n2. Create a hook function\ndef make_hook(name):\n    def hook(module, input, output):\n        activations[name] = output.detach()\n    return hook\nThis is a function generator.\nWhat it means:\n👉 “When a layer runs, grab its output and store it”\nBreakdown:\n· module → the layer (conv1 or conv2) \n· input → what goes into the layer \n· output → what comes out of the layer ← this is what we want \nactivations[name] = output.detach()\n· saves the output \n· .detach() = don’t track gradients (so it’s safe to visualize) \n\n3. Attach hooks to layers\nmodel_v1.conv1.register_forward_hook(make_hook('GAT_Layer_1'))\nmodel_v1.conv2.register_forward_hook(make_hook('GAT_Layer_2'))\nThis means:\n👉 “Every time conv1 or conv2 runs, automatically execute the hook”\nSo when you later do:\nmodel_v1(node_features, edge_index, time_ids)\nthis secretly happens:\nconv1 runs → save its output\nconv2 runs → save its output\n\nAfter running the model\nYou’ll have:\nactivations['GAT_Layer_1']  # tensor\nactivations['GAT_Layer_2']  # tensor\nThese are matrices like:\n[num_nodes × feature_dimensions]\n\nWhy this is useful\n👉 These outputs = activations\nThey tell you:\n· which features are “active” \n· which nodes have strong signals \nThen you turn them into:\n👉 heatmaps (yellow = high, blue = low)\n\nOne-sentence summary (for your report)\nForward hooks capture intermediate layer outputs during the model’s forward pass, allowing us to store activations for visualization and interpret how the GAT processes node features.\n\nIf you want, next I can help you interpret the heatmaps, which is actually the hardest (and most important) part."
+    }
+  ]
+}

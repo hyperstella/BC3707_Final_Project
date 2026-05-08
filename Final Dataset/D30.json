@@ -1,0 +1,46 @@
+{
+  "conversation_id": "D29",
+  "llm": "GPT",
+  "conversation": [
+    {
+      "turn_id": 1,
+      "role": "student",
+      "content": "in dialogflow, The chatbot should use external sources of information such as documents, web pages, or knowledge bases (if supported by Dialogflow or through integration). how should I integrate external sources in dialogflow?"
+    },
+    {
+      "turn_id": 1,
+      "role": "llm",
+      "content": "To integrate external sources of information into a Dialogflow chatbot, you typically have three main approaches, depending on what kind of external data you want to use (documents, web pages, or structured databases), and whether you're using Dialogflow ES or Dialogflow CX.\n\n1. Using Webhooks (Fulfillment) — Recommended for Dynamic Integration\n\nWebhooks allow you to integrate Dialogflow with external APIs, databases, or content sources (like web pages, documents, or knowledge bases). When Dialogflow detects a specific intent, it can send a request to your backend service which fetches the data and returns a response.\n\nSteps:\n1. Enable Fulfillment in Dialogflow for specific intents.\n2. Deploy a backend server (Node.js, Python, etc.) on Firebase Functions, Google Cloud Functions, or any other cloud platform.\n3. In your backend:\n   - Use APIs, scrapers, or document parsers (like PDF readers or Google Docs APIs) to fetch information.\n   - Return the appropriate response in the JSON format Dialogflow expects.\n\nExample Use Case:\nIf a user asks: “What is your NGO's mission?”, and the mission is stored on your website, the webhook can scrape or query that content and send it back.\n\n2. Dialogflow Knowledge Connectors (ES only, Limited Use)\n\nDialogflow ES supports Knowledge Connectors, which allow you to upload documents (PDF, HTML, CSV, plain text) or point to public URLs, and Dialogflow will automatically extract FAQs from them.\n\nHow to Use:\n1. Go to Dialogflow ES Console → Knowledge Base.\n2. Create a new knowledge base.\n3. Upload documents or URLs.\n4. Enable the “Enable Knowledge Base” option in your intents or fallback intent.\n5. Dialogflow uses ML to match questions to content in the documents.\n\nLimitations:\n- Only supported in Dialogflow ES, not CX.\n- Best suited for FAQs, not complex logic or structured queries.\n- Limited control over matching and formatting.\n\n3. Integrate with a Vector Database + LLM (Advanced)\n\nFor deeper understanding and querying over unstructured documents, you can build a RAG (Retrieval-Augmented Generation) system with:\n- Dialogflow + webhook\n- Embedding service (e.g., OpenAI or Google PaLM embeddings)\n- Vector database (e.g., Pinecone, Weaviate, FAISS)\n- LLM response generation\n\nThis way, Dialogflow handles intent detection, but document-based answers come from your custom backend using semantic search over vectorized documents.\n\nTool/Platform Recommendations:\n| Goal | Integration Method | Tools |\n|------|--------------------|-------|\n| Use Google Docs, PDF, Web Pages | Webhook + Scraper/API | Puppeteer, Requests, BeautifulSoup, Google Docs API |\n| Use FAQs or simple structured docs | Knowledge Connector | Dialogflow ES |\n| Handle long documents or semantic search | Webhook + Vector DB + LLM | LangChain, Pinecone, OpenAI |\n\nExample Workflow (Webhook + External Site):\n1. User input: “What programs do you run in Peru?”\n2. Dialogflow intent: Matches \"NGO_Programs_Intent\"\n3. Fulfillment triggered\n4. Webhook code:\n```js\nconst response = await axios.get('https://www.jgminnovation.org/what-we-do');\nconst programs = extractPrograms(response.data); // custom function\nreturn res.json({ fulfillmentText: programs });\n```\n\nLet me know if you're using Dialogflow ES or CX, and I can tailor the setup even more precisely to your needs."
+    }
+  ],
+  "annotations": {
+    "turns": [
+      {
+        "turn_id": 1,
+        "intent": {
+          "Scenario": "Project/Research",
+          "Goal": "Step-by-Step Guidance"
+        },
+        "prompt_quality": {
+          "criteria": {
+            "Clarity of Intent": 5,
+            "Specificity & Precision": 4,
+            "Context Provision": 5
+          },
+          "notes": "",
+          "score": 14
+        },
+        "response_quality": {
+          "criteria": {
+            "Coherence": 4,
+            "Correctness": 5,
+            "Guidance": 4
+          },
+          "notes": "",
+          "score": 25,
+          "score_formula": "2*Coherence + 1*Correctness + 3*Guidance"
+        }
+      }
+    ]
+  }
+}

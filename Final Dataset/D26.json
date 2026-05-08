@@ -1,0 +1,17 @@
+{
+  "conversation_id": "26",
+  "model": "gpt",
+  
+  "conversation": [
+    {
+      "turn_id": 1,
+      "role": "student",
+      "content": "Can you explain to me what is fork in the context of C programming and give me some examples?"
+    },
+    {
+      "turn_id": 1,
+      "role": "llm",
+      "content": "In C programming (specifically on Unix-like systems such as Linux or macOS), fork() is a system \n      call used to create a new process.\n\nThink of it as your program making a copy of itself while it's running.\n\n\n      What fork() does:\nWhen you call fork():\n- The operating system creates a new process (called the child process)\n\n      - The original process is called the parent process\n- The child is almost an exact duplicate of the parent:\n  \n      - Same code\n  - Same variables (but separate copies)\n  - Same program counter (execution continues from the same line)\n      \n\nReturn value of fork():\npid_t pid = fork();\n- In the parent process → pid > 0 (child's process ID)\n- In the child \n      process → pid == 0\n- If it fails → pid < 0\n\nBasic Example:\n#include <stdio.h>\n#include <unistd.h>\n\nint main() {\n    \n      pid_t pid = fork();\n\n    if (pid == 0) {\n        printf(\"This is the child process\\n\");\n    } else {\n        \n      printf(\"This is the parent process\\n\");\n    }\n\n    return 0;\n}\n\nBoth processes run the same code, and the output \n      order is not guaranteed.\n\nExample with Variable Copy:\n#include <stdio.h>\n#include <unistd.h>\n\nint main() {\n    \n      int x = 10;\n\n    pid_t pid = fork();\n\n    if (pid == 0) {\n        x = 20;\n        printf(\"Child: x = %d\\n\", x);\n    } \n      else {\n        printf(\"Parent: x = %d\\n\", x);\n    }\n\n    return 0;\n}\n\nThe parent prints 10, and the child prints \n      20 because they have separate memory.\n\nExample with Multiple Forks:\n#include <stdio.h>\n#include <unistd.h>\n\nint main() \n      {\n    fork();\n    fork();\n    printf(\"Hello\\n\");\n    return 0;\n}\n\nThis prints \"Hello\" 4 times because each fork \n      doubles the number of processes.\n\nKey ideas:\n- Processes run independently after fork()\n- Memory is not shared (each \n      process has its own copy)\n- Execution order is not guaranteed\n\nCommon uses include parallel processing, shells, and servers.\n      \n\nfork() is declared in #include <unistd.h> and is not available on Windows without compatibility layers."
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "conversation_id": "clustering_dissimilarity_deep_dive_001",
+  "conversation": [
+    {
+      "turn_id": 1,
+      "role": "student",
+      "content": "can you make good problems on lecture 17 regarding similarities, dissimilarities etc."
+    },
+    {
+      "turn_id": 1,
+      "role": "llm",
+      "content": "Below are 12 practice problems designed to test your understanding of **Lecture 17: Clustering**, focusing on distance metrics, feature weighting, and clustering objectives.\n\n### **Problems**\n\n1. **Basic dissimilarity metrics**: Let $x=(2,0,3)$ and $x'=(5,-4,3)$. Compute $d_1(x,x')$, $d_2(x,x')$, and $d_{\\infty}(x,x')$. Explain which is most sensitive to one large coordinate difference.\n2. **Mixed numerical and categorical dissimilarity**: Given Customer A (20, red, 100) and B (35, blue, 160) with defined feature-level dissimilarities and weights ($w_{\\text{age}}=0.2, w_{\\text{color}}=0.3, w_{\\text{spend}}=0.5$), compute the total object dissimilarity $D(A,B)$.\n3. **Correlation similarity versus Euclidean distance**: For vectors $x=(1,2,3)$, $y=(2,4,6)$, and $z=(3,2,1)$, determine which has perfect positive or negative correlation with $x$ and compute the correlation distances.\n4. **Choosing the right dissimilarity**: Choose the appropriate metric ($L_2$, $L_1$, Hamming, or Correlation) for clustering based on shopping patterns, physical 2D space, browser type, and income with outliers.\n5. **Feature scaling and weighted dissimilarity**: Explain why income ($x^{(1)}$) might dominate number of children ($x^{(2)}$) in Euclidean distance and propose a fix using standardization or weights.\n6. **Automatic feature weighting**: Calculate weights $w_j$ inversely proportional to average dissimilarities $\\bar{d}_1=100$ and $\\bar{d}_2=4$, then compute the total dissimilarity for a pair with $d_1=25$ and $d_2=2$.\n7. **Within-cluster scatter**: For one-dimensional points $\\{0, 2, 6, 8\\}$, compute the K-means inertia for clustering $C_1=\\{0,2\\}$ and $C_2=\\{6,8\\}$.\n8. **Bad clustering versus good clustering**: Compare the inertia of Clustering A $\\{0,2\\},\\{6,8\\}$ vs. Clustering B $\\{0,8\\},\\{2,6\\}$ for the points $\\{0, 2, 6, 8\\}$.\n9. **One iteration of K-means**: For data $\\{0, 2, 5, 9\\}$ and initial centroids $c_1=0, c_2=6$, assign points and recompute the new centroids.\n10. **K-means vs. K-medians vs. K-medoids**: Identify the best method for data with extreme outliers, categorical features with custom dissimilarities, and cases requiring an actual observed sample as the center.\n11. **Hierarchical clustering linkage**: Merge closest pair $(A,B)$ from a dissimilarity table and compute the distance to $C$ using single, complete, and average linkage.\n12. **Choosing $K$ with an elbow plot**: Given $W_K$ values for $K=1$ to $5$, identify the reasonable value for $K$ using the elbow method.\n\n---\n\n### **Answer Key**\n\n* **Ans 1**: $d_1=7, d_2=5, d_{\\infty}=4$. $d_{\\infty}$ is most sensitive to the largest single coordinate difference.\n* **Ans 2**: $D(A,B) = 0.2(0.3) + 0.3(1) + 0.5(0.3) = 0.51$.\n* **Ans 3**: $y$ has $\\rho=1$ ($d=0$); $z$ has $\\rho=-1$ ($d=4$).\n* **Ans 4**: 1) Correlation; 2) $L_2$; 3) Hamming; 4) $L_1$.\n* **Ans 5**: Income dominates due to scale. Fix via standardization $x^{(j)} \\leftarrow \\frac{x^{(j)}-\\bar{x}^{(j)}}{s_j}$.\n* **Ans 6**: $w_1 = 1/26, w_2 = 25/26$. $D(x,x') \\approx 2.88$.\n* **Ans 7**: Means are $1$ and $7$. Total inertia = $(0-1)^2 + (2-1)^2 + (6-7)^2 + (8-7)^2 = 4$.\n* **Ans 8**: Clustering A (inertia=4) is better than Clustering B (inertia=40).\n* **Ans 9**: $C_1=\\{0,2\\}, C_2=\\{5,9\\}$. New centroids: $c_1=1, c_2=7$.\n* **Ans 10**: 1) K-medians; 2) K-means; 3) K-medoids; 4) K-medoids.\n* **Ans 11**: Single=5, Complete=10, Average=7.5 for $\\{A,B\\}$ to $\\{C,D\\}$.\n* **Ans 12**: $K=3$. The drop in $W_K$ becomes significantly smaller after $K=3$."
+    }
+  ],
+  "annotations": {
+    "intent": {
+      "Scenario": "Exam Prep",
+      "Goal": "Step-by-Step Guidance"
+    },
+    "prompt_quality": {
+      "score": 5,
+      "criteria": {
+        "Clarity of Intent": 5,
+        "Specificity & Precision": 5,
+        "Context Provision": 5
+      },
+      "notes": null
+    },
+    "response_quality": {
+      "score": 5,
+      "criteria": {
+        "Coherence": 5,
+        "Correctness": 5,
+        "Guidance": 5
+      },
+      "notes": "",
+      "Score": 30
+    }
+  }
+}

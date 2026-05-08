@@ -1,0 +1,44 @@
+{
+  "conversation_id": "22",
+  "model": "gpt",
+  
+  "conversation": [
+    {
+      "turn_id": 1,
+      "role": "student",
+      "content": "Im in the ssh server, how do I clone a GitHub repo to it?"
+    },
+    {
+      "turn_id": 1,
+      "role": "llm",
+      "content": "Nice, you're almost there. Cloning a GitHub repo over SSH is pretty straightforward—here's \n      the clean way to do it. 1. Make sure git is installed. Run: git --version If it errors, install it \n      (e.g. sudo apt install git on Ubuntu). 2. Get the repo's SSH URL On GitHub, click the green Code \n      button → choose SSH → copy something like: git@github.com:username/repo-name.git 3. Check if your server \n      has an SSH key Run: ls ~/.ssh Look for something like id_rsa and id_rsa.pub or id_ed25519. If not, generate \n      one: ssh-keygen -t ed25519 -C \"your_email@example.com\" 4. Add your SSH key to GitHub Copy your public key: \n      cat ~/.ssh/id_ed25519.pub Then go to GitHub → Settings → SSH and GPG keys → New SSH key → paste it. 5. Test \n      the connection ssh -T git@github.com You should see a success message. 6. Clone the repo Navigate to where \n      you want it: cd /path/to/your/folder Then: git clone git@github.com:username/repo-name.git Common issues \n      Permission denied (publickey) → SSH key not added correctly Repo not found → wrong URL or no access Firewall \n      restrictions → try HTTPS instead: git clone https://github.com/username/repo-name.git If you want, tell me \n      // what error you're seeing (if any), and I'll debug it with you step-by-step."
+    }
+  ],
+
+  "annotations": {
+    "intent": {
+      "Scenario": "Assignment",
+      "Goal": "Step-by-Step Guidance"
+    },
+
+    "prompt_quality": {
+      "score": 13,
+      "criteria": {
+        "Clarity of Intent": 5,
+        "Specificity & Precision": 4,
+        "Context Provision": 4
+      },
+      "notes": ""
+    },
+
+    "response_quality": {
+      "score": 30,
+      "criteria": {
+        "Coherence": 5,
+        "Correctness": 5,
+        "Guidance": 5
+      },
+      "notes": ""
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "conversation_id": "D81",
+  "llm": "GPT",
+  "conversation": [
+    {
+      "turn_id": 1,
+      "role": "student",
+      "content": "Prove or disprove: every connected graph with n vertices and n−1 edges is a tree."
+  },
+    {
+      "turn_id": 1,
+      "role": "llm",
+      "content": "The statement is **true**.\n\nRecall the definition:\n\nA graph is a **tree** if it is **connected** and **acyclic** (contains no cycles).\n\nWe are given a graph \\(G\\) with:\n\n- \\(n\\) vertices,\n- \\(n-1\\) edges,\n- and \\(G\\) is connected.\n\nWe must show that \\(G\\) is a tree.\n\n---\n\n## Proof\n\nSuppose, for contradiction, that \\(G\\) is **not** a tree.\n\nSince \\(G\\) is connected already, the only way it can fail to be a tree is if it contains a cycle.\n\nSo assume \\(G\\) has a cycle.\n\nChoose any edge \\(e\\) on that cycle and remove it. Because the edge belonged to a cycle, there is still another path between its endpoints, so the graph remains connected after removing \\(e\\).\n\nNow the resulting graph has:\n\n- \\(n\\) vertices,\n- \\(n-2\\) edges,\n- and is still connected.\n\nBut this is impossible, because any connected graph on \\(n\\) vertices must have at least \\(n-1\\) edges.\n\nThis contradiction shows that \\(G\\) cannot contain a cycle.\n\nTherefore \\(G\\) is:\n\n- connected, and\n- acyclic.\n\nHence \\(G\\) is a tree.\n\n\\[\n\\boxed{\\text{Every connected graph with } n \\text{ vertices and } n-1 \\text{ edges is a tree.}}\n\\]"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "conversation_id": "D90",
+  "llm": "GPT",
+  "conversation": [
+    {
+      "turn_id": 1,
+      "role": "student",
+      "content": "What is deadlock in operating systems, and what are the four necessary conditions for deadlock to occur?"
+    },
+    {
+      "turn_id": 1,
+      "role": "llm",
+      "content": "A deadlock in an operating system occurs when a group of processes become permanently blocked because each process is waiting for a resource that is being held by another process in the group.\n\nIn other words, none of the processes can continue because they are all waiting on each other indefinitely.\n\n### Simple Example\n- Process A holds Resource 1 and waits for Resource 2.\n- Process B holds Resource 2 and waits for Resource 1.\n\nNeither process can proceed, so the system is in a deadlock.\n\n---\n\n# Four Necessary Conditions for Deadlock\n\nThese are known as the Coffman conditions. All four must be present simultaneously for a deadlock to occur.\n\n## 1. Mutual Exclusion\nAt least one resource must be non-shareable.\n\n- Only one process can use the resource at a time.\n- Example: a printer cannot print two jobs simultaneously.\n\n---\n\n## 2. Hold and Wait\nA process is holding at least one resource while waiting for additional resources.\n\n- Example:\n  - Process A holds a file lock\n  - While requesting access to a printer\n\n---\n\n## 3. No Preemption\nResources cannot be forcibly taken away from a process.\n\n- A resource can only be released voluntarily by the process holding it.\n- Example: the OS cannot simply take away a printer currently in use.\n\n---\n\n## 4. Circular Wait\nA circular chain of processes exists where each process waits for a resource held by the next process.\n\nExample:\n- P1 waits for a resource held by P2\n- P2 waits for a resource held by P3\n- P3 waits for a resource held by P1\n\nThis creates a cycle with no process able to continue.\n\n---\n\n# Important Idea\n\nA deadlock can be prevented by ensuring that at least one of these four conditions never occurs.\n\nFor example:\n- Allow resource preemption\n- Require processes to request all resources at once\n- Impose an ordering on resource acquisition to prevent circular wait\n\n---\n\n# Summary Table\n\n| Condition | Meaning |\n|---|---|\n| Mutual Exclusion | Resources are non-shareable |\n| Hold and Wait | Processes hold resources while requesting more |\n| No Preemption | Resources cannot be forcibly removed |\n| Circular Wait | Processes form a waiting cycle |"
+    }
+  ]
+}

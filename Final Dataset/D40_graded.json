@@ -1,0 +1,46 @@
+{
+  "conversation_id": "D40",
+  "llm": "GPT",
+  "conversation": [
+    {
+      "turn_id": 1,
+      "role": "student",
+      "content": "The student asks for an explanation of the monotonic-stack solution to Largest Rectangle in Histogram."
+    },
+    {
+      "turn_id": 1,
+      "role": "llm",
+      "content": "The response explains stack invariants, popping logic, width calculations, cleanup loops, and sentinel initialization."
+    }
+  ],
+  "annotations": {
+    "turns": [
+      {
+        "turn_id": 1,
+        "intent": {
+          "Scenario": "Assignment",
+          "Goal": "Algorithm Explanation"
+        },
+        "prompt_quality": {
+          "criteria": {
+            "Clarity of Intent": 5,
+            "Specificity & Precision": 5,
+            "Context Provision": 5
+          },
+          "notes": "The student provides the full stack-based solution and asks for conceptual understanding.",
+          "score": 15
+        },
+        "response_quality": {
+          "criteria": {
+            "Coherence": 4,
+            "Correctness": 4,
+            "Guidance": 4
+          },
+          "notes": "The explanation is mostly correct and detailed, but occasionally prioritizes intuition over formal invariant reasoning. Some points about equal-height popping and sentinels are slightly hand-wavy.",
+          "score": 24,
+          "score_formula": "2*Coherence + 1*Correctness + 3*Guidance"
+        }
+      }
+    ]
+  }
+}

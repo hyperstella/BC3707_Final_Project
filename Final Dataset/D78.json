@@ -1,0 +1,16 @@
+{
+  "conversation_id": "D78",
+  "llm": "GPT",
+  "conversation": [
+    {
+      "turn_id": 1,
+      "role": "student",
+      "content": "solve the 1st order pde: u_x + 2u_y = u^2 given initial condition u(x,0)=h(x)"
+    },
+    {
+      "turn_id": 1,
+      "role": "llm",
+      "content": "We solve using the method of characteristics.\n\nPDE: u_x + 2u_y = u^2, with u(x,0)=h(x).\n\nCharacteristic system:\n\ndx/ds = 1,\n\ndy/ds = 2,\n\ndu/ds = u^2.\n\nSolve x(s), y(s):\n\nx = s + α,\n\ny = 2s,\nso s = y/2 and α = x - y/2.\n\nSolve u:\n\ndu/ds = u^2\n=> ∫ u^{-2} du = ∫ ds\n=> -1/u = s + C\n=> u = 1/(C' - s).\n\nApply initial condition u(α,0)=h(α):\n\nu(0)=h(α) => -1/h(α)=C\nso u(s)=1/(1/h(α) - s).\n\nSubstitute s = y/2, α = x - y/2:\n\nu(x,y) = 1 / (1/h(x - y/2) - y/2).\n\nSimplify:\n\nu(x,y) = h(x - y/2) / (1 - (y/2) h(x - y/2)).\n\nFinal answer:\n\nu(x,y) = \\frac{h(x - y/2)}{1 - (y/2)h(x - y/2)}."
+    }
+  ]
+}

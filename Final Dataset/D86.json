@@ -1,0 +1,16 @@
+{
+  "conversation_id": "D86",
+  "llm": "GPT",
+  "conversation": [
+    {
+      "turn_id": 1,
+      "role": "student",
+      "content": "Write a recursive algorithm to compute the n-th Fibonacci number and analyze its runtime."
+    },
+    {
+      "turn_id": 1,
+      "role": "llm",
+      "content": "A classic recursive algorithm for computing the \\(n\\)-th Fibonacci number is based directly on the mathematical definition:\n\n\\[\nF(n) =\n\\begin{cases}\n0 & \\text{if } n = 0 \\\\\n1 & \\text{if } n = 1 \\\\\nF(n-1) + F(n-2) & \\text{if } n > 1\n\\end{cases}\n\\]\n\n## Recursive Algorithm\n\n```python\ndef fibonacci(n):\n    if n == 0:\n        return 0\n    if n == 1:\n        return 1\n\n    return fibonacci(n - 1) + fibonacci(n - 2)\n```\n\n## Example\n\nTo compute \\(F(5)\\):\n\n\\[\nF(5) = F(4) + F(3)\n\\]\n\nThen:\n\n\\[\nF(4) = F(3) + F(2)\n\\]\n\n\\[\nF(3) = F(2) + F(1)\n\\]\n\nand so on, until the base cases \\(F(0)\\) and \\(F(1)\\) are reached.\n\nThe recursion tree grows rapidly because the same subproblems are solved repeatedly.\n\nFor example:\n\n- \\(F(3)\\) gets computed multiple times\n- \\(F(2)\\) gets computed even more times\n\n---\n\n# Runtime Analysis\n\nLet \\(T(n)\\) represent the runtime.\n\nThe recursive relation is:\n\n\\[\nT(n) = T(n-1) + T(n-2) + O(1)\n\\]\n\nThis recurrence behaves similarly to the Fibonacci sequence itself.\n\nThe number of recursive calls grows exponentially, giving:\n\n\\[\nT(n) = O(2^n)\n\\]\n\nA tighter bound is:\n\n\\[\nT(n) = O(\\varphi^n)\n\\]\n\nwhere\n\n\\[\n\\varphi \\approx 1.618\n\\]\n\nis the golden ratio.\n\n## Why is it inefficient?\n\nBecause many values are recomputed repeatedly.\n\nFor example, computing \\(F(6)\\):\n\n```text\nF(6)\n├── F(5)\n│   ├── F(4)\n│   │   ├── F(3)\n│   │   └── F(2)\n│   └── F(3)\n└── F(4)\n```\n\nNotice:\n\n- \\(F(4)\\) is computed twice\n- \\(F(3)\\) is computed three times\n- Smaller values repeat even more\n\nThis repeated work causes exponential growth.\n\n---\n\n# Space Complexity\n\nThe deepest recursive chain is:\n\n\\[\nn \\rightarrow n-1 \\rightarrow n-2 \\rightarrow \\dots\n\\]\n\nSo the recursion depth is \\(n\\).\n\nTherefore:\n\n\\[\n\\text{Space Complexity} = O(n)\n\\]\n\ndue to the call stack.\n\n---\n\n# Final Complexities\n\n| Complexity Type | Value |\n|---|---|\n| Time Complexity | \\(O(2^n)\\) |\n| Space Complexity | \\(O(n)\\) |\n\nThis recursive approach is elegant and easy to understand, but inefficient for large \\(n\\). Dynamic programming or iteration can reduce the runtime to \\(O(n)\\)."
+    }
+  ]
+}
