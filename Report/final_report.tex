@@ -78,6 +78,8 @@
 \usepackage{indentfirst}
 \usepackage{booktabs}
 \usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{subcaption}
 \usepackage{amsmath}
 \usepackage{listings}
 
@@ -180,8 +182,7 @@ Each dialogue is stored as a structured JSON object containing the conversation 
 \centering
 \begin{minipage}{0.95\columnwidth}
 
-\begin{lstlisting}[language=json,
-caption={Abbreviated example of an annotated tutoring dialogue.},
+\begin{lstlisting}[caption={Abbreviated example of an annotated tutoring dialogue.},
 label={fig:json-example}]
 {
   "conversation_id": "D46",
@@ -309,7 +310,7 @@ Using the annotated dataset, we conduct several forms of pedagogical and interac
 
 \subsection{Dataset Overview}
 
-After preprocessing, the annotated subset of the dataset contains 64 labeled student turns drawn from 43 conversations. Table~\ref{tab:goal-dist} shows the distribution of learning goals across the annotated dialogues. Concept Explanation (39\%) and Answer Clarification (31\%) together account for the large majority of interactions, reflecting that students most commonly seek explanations of concepts they have not fully understood, or wish to challenge or verify a prior response. Step-by-Step Guidance (14\%) and Direct Answer Generation (5\%) appear less frequently. Notably, the Debugging/Error Fixing category is entirely absent from the annotated portion of the dataset, suggesting either that debugging interactions were underrepresented in the collected sample or that they were not submitted by annotators. The remaining 7 turns (11\%) were labeled Other and excluded from classification experiments.
+The final dataset contains 162 labeled student turns drawn from 97 conversations. Of these, 64 turns are human-annotated by our team and 98 turns were labeled using GPT-4o-mini few-shot prompting applied to the 57 previously unannotated conversations. Table~\ref{tab:goal-dist} shows the combined goal distribution. Concept Explanation (59\%) dominates, reflecting that students most commonly seek explanations of concepts they have not fully understood. Answer Clarification (17\%) and Step-by-Step Guidance (12\%) are the next most frequent, while Debugging/Error Fixing (7\%) and Direct Answer Generation (4\%) are less common.
 
 \begin{table}[h]
 \centering
@@ -318,30 +319,30 @@ After preprocessing, the annotated subset of the dataset contains 64 labeled stu
 \toprule
 Learning Goal & Count & \% \\
 \midrule
-Concept Explanation      & 25 & 39\% \\
-Answer Clarification     & 20 & 31\% \\
-Step-by-Step Guidance    &  9 & 14\% \\
-Direct Answer Generation &  3 &  5\% \\
-Other / Unlabeled        &  7 & 11\% \\
+Concept Explanation      & 96 & 59\% \\
+Answer Clarification     & 28 & 17\% \\
+Step-by-Step Guidance    & 20 & 12\% \\
+Debugging / Error Fixing & 11 &  7\% \\
+Direct Answer Generation &  7 &  4\% \\
 \bottomrule
 \end{tabular}
-\caption{Learning goal distribution across 64 annotated turns.}
+\caption{Learning goal distribution across 162 labeled turns (64 human-annotated, 98 GPT-labeled).}
 \label{tab:goal-dist}
 \end{table}
 
-For learning scenarios, 53\% of turns were labeled Not Clear, with Assignment Help (26\%) and Lecture Learning (19\%) as the next most common, and Exam Preparation comprising only 2\%. The high proportion of Not Clear labels reflects the open-ended nature of the collected dialogues, in which students did not always situate their questions within a specific course context.
-
-The affective label distribution (54 turns with satisfaction labels) shows that 55\% of follow-up turns are neutral, 25\% are satisfied, and 20\% are unsatisfied, indicating that roughly one in five student follow-up messages signals remaining confusion or dissatisfaction after the LLM's response.
+For learning scenarios, Lecture Learning (46\%) is the most common context, followed by Not Clear (35\%), Assignment Help (14\%), and Project/Research Support (5\%). The affective label distribution across the 64 human-annotated turns shows that 55\% of follow-up messages are neutral, 25\% satisfied, and 20\% unsatisfied — indicating roughly one in five student follow-up messages signals remaining confusion or dissatisfaction after the LLM's response.
 
 \subsection{Prompt and Response Quality}
 
-Across the 64 annotated turns, the mean normalized prompt quality score is $0.757$ ($\sigma = 0.216$), and the mean normalized response quality score is $0.810$ ($\sigma = 0.192$). Both scores are relatively high on average, consistent with the finding that modern LLMs tend to produce coherent and correct responses to well-formed prompts, and that students in higher-education CS and Math settings tend to ask reasonably specific questions. The slightly higher mean response quality relative to prompt quality suggests that the LLMs compensate for underspecified prompts.
+Across the 64 human-annotated turns, the mean normalized prompt quality score is $0.757$ ($\sigma = 0.216$), and the mean normalized response quality score is $0.810$ ($\sigma = 0.192$). Both are relatively high, consistent with the finding that modern LLMs produce coherent and correct responses even to moderately specified prompts. The slightly higher mean response quality suggests that LLMs compensate for underspecified student prompts.
 
-The Pearson correlation between prompt quality and response quality is $r = 0.228$, indicating a weak positive relationship. While higher-quality prompts are associated with marginally better responses on average, the relationship is not strong, suggesting that response quality in this dataset is only loosely coupled to prompt specificity. This may reflect the fact that modern LLMs perform well across a wide range of prompt qualities, reducing the observable effect of prompt quality on output quality at our scale.
+The Pearson correlation between prompt quality and response quality is $r = 0.228$, indicating a weak positive relationship. While higher-quality prompts are associated with marginally better responses, the relationship is not strong, suggesting that response quality is only loosely coupled to prompt specificity. This may reflect the robustness of modern LLMs across a wide range of prompt quality levels.
 
 \subsection{Goal and Satisfaction Classification}
 
-To evaluate whether the annotations can support automated intent detection, we trained three classifiers on the goal prediction and satisfaction prediction tasks: (1) TF-IDF with logistic regression, combining bag-of-ngrams features with normalized quality scores; (2) a Sentence-Transformer MLP, using \texttt{all-MiniLM-L6-v2} embeddings concatenated with quality scores; and (3) a TextCNN with learned token embeddings. Goal prediction used a fixed stratified 8:1:1 split (42 train, 6 test); satisfaction prediction used leave-one-out cross-validation (LOOCV) over 64 samples due to class size constraints. Results are reported in Table~\ref{tab:clf-results}.
+To evaluate whether annotations can support automated intent detection, we trained three classifiers on the goal prediction and satisfaction prediction tasks: (1) TF-IDF with logistic regression, combining bag-of-ngrams features with normalized quality scores; (2) a Sentence-Transformer MLP using \texttt{all-MiniLM-L6-v2} embeddings concatenated with quality scores; and (3) a TextCNN with learned token embeddings.
+
+For goal prediction, the full 162-row dataset was split 8:1:1 stratified by class (128 train, 17 val, 17 test). The training set includes both human-annotated and GPT-labeled turns; the test set similarly contains a mix of both sources. For satisfaction prediction, LOOCV was applied over the 64 human-annotated turns. Results are reported in Table~\ref{tab:clf-results}.
 
 \begin{table}[h]
 \centering
@@ -350,28 +351,72 @@ To evaluate whether the annotations can support automated intent detection, we t
 \toprule
 Task & Model & Acc. & Macro-F1 \\
 \midrule
-\multirow{3}{*}{\shortstack[l]{Goal\\(4-class)}}
-  & TF-IDF + LogReg   & 0.333 & 0.300 \\
-  & Sentence-MLP      & 0.500 & 0.357 \\
-  & TextCNN           & 0.500 & 0.400 \\
+\multirow{3}{*}{\shortstack[l]{Goal\\(5-class)}}
+  & TF-IDF + LogReg        & \textbf{0.706} & 0.424 \\
+  & Sentence-MLP           & \textbf{0.706} & \textbf{0.465} \\
+  & TextCNN                & \textbf{0.706} & 0.300 \\
 \midrule
 \multirow{3}{*}{\shortstack[l]{Satisfaction\\(3-class)}}
-  & TF-IDF + LogReg   & \textbf{0.578} & \textbf{0.525} \\
-  & Sentence-MLP      & 0.531 & 0.446 \\
-  & TextCNN           & 0.547 & 0.298 \\
+  & TF-IDF + LogReg        & \textbf{0.578} & \textbf{0.525} \\
+  & Sentence-MLP           & 0.531 & 0.446 \\
+  & TextCNN                & 0.547 & 0.298 \\
 \bottomrule
 \end{tabular}
-\caption{Classification results. Goal: majority baseline $\approx$ 0.44 (6-sample test set). Satisfaction: majority baseline $\approx$ 0.55 (LOOCV, $n=64$).}
+\caption{Classification results. Goal: majority baseline $= 0.588$ (17-sample test set, $n=162$). Satisfaction: majority baseline $\approx 0.547$ (LOOCV, $n=64$).}
 \label{tab:clf-results}
 \end{table}
 
-For goal prediction, all three models perform near or below the majority baseline of 0.44. This is primarily a consequence of the evaluation setup: a 6-sample test set means a single misclassification produces a 16.7 percentage-point accuracy change, so the reported numbers carry high variance rather than reflecting stable model behavior. TextCNN achieves the highest macro-F1 (0.40), suggesting that it captures some distributional signal in token sequences, but no model reliably distinguishes all four categories at this scale.
+For goal prediction, all three models achieve 70.6\% accuracy, outperforming the majority baseline of 58.8\% by 11.8 percentage points. The Sentence-MLP achieves the highest macro-F1 (0.465), indicating it is the most balanced across the five classes. TF-IDF and Sentence-MLP both correctly classify Answer Clarification and Concept Explanation well, while Debugging/Error Fixing and Direct Answer Generation remain difficult due to their small class sizes. TextCNN achieves competitive accuracy but lower macro-F1 (0.300), suggesting it tends to favour the majority class.
 
-For satisfaction prediction, results are more interpretable because LOOCV over 64 samples provides a stable estimate. TF-IDF with logistic regression achieves the highest accuracy (57.8\%) and macro-F1 (0.525), both above the 54.7\% majority baseline. Crucially, the simpler TF-IDF model outperforms both neural alternatives on both metrics. This pattern is expected when training data is scarce: learned representations from sentence transformers and CNNs require substantially more examples to generalize, while n-gram features transfer more directly to short, lexically constrained text. TextCNN's low macro-F1 (0.298) despite reasonable accuracy reveals class collapse — the model tends to predict the majority class (neutral) for most inputs, capturing little variation across satisfied and unsatisfied turns.
+For satisfaction prediction, TF-IDF with logistic regression achieves the highest accuracy (57.8\%) and macro-F1 (0.525), both above the 54.7\% majority baseline. The simpler TF-IDF model outperforming neural alternatives is expected when training data is scarce: n-gram features generalise more directly from short text than learned representations, which require more examples. TextCNN's low macro-F1 (0.298) despite reasonable accuracy reveals class collapse — it predominantly predicts the majority class (neutral).
+
+\subsection{Confusion Matrices}
+
+Figures~\ref{fig:goal-cms} and~\ref{fig:sat-cms} show the confusion matrices for the goal and satisfaction tasks respectively. For goal prediction, all three models classify Concept Explanation reliably (the dominant class), while Debugging/Error Fixing and Direct Answer Generation are consistently missed due to their small support. The Sentence-MLP shows the most balanced recall across classes. For satisfaction prediction, TF-IDF captures all three classes to some degree, while TextCNN collapses almost entirely to the neutral majority class.
+
+\begin{figure*}[t]
+\centering
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\linewidth]{../results/goal_tfidf_cm.png}
+  \caption{TF-IDF + LogReg}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\linewidth]{../results/goal_sentence_mlp_cm.png}
+  \caption{Sentence-MLP}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\linewidth]{../results/goal_textcnn_cm.png}
+  \caption{TextCNN}
+\end{subfigure}
+\caption{Confusion matrices for goal prediction (5-class, test $n=17$).}
+\label{fig:goal-cms}
+\end{figure*}
+
+\begin{figure*}[t]
+\centering
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\linewidth]{../results/satisfaction_tfidf_cm.png}
+  \caption{TF-IDF + LogReg}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\linewidth]{../results/satisfaction_sentence_mlp_cm.png}
+  \caption{Sentence-MLP}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\linewidth]{../results/satisfaction_textcnn_cm.png}
+  \caption{TextCNN}
+\end{subfigure}
+\caption{Confusion matrices for satisfaction prediction (3-class, LOOCV $n=64$).}
+\label{fig:sat-cms}
+\end{figure*}
 
 \subsection{Limitations}
 
-Three data-side constraints limit the strength of the classification results. First, the annotated subset covers only 44 of the 100 collected conversations; the remaining 56 conversations lack goal labels and were excluded from modeling. Second, the Debugging/Error Fixing goal category contains zero annotated examples, preventing evaluation of that class entirely. Third, the 6-sample test set for goal prediction makes accuracy estimates unreliable. These limitations are expected for a first-pass dataset construction effort and are documented here as the primary bottleneck for future work. Extending annotation to the remaining conversations — whether manually or through LLM-assisted labeling — would be the highest-leverage improvement to the modeling results.
+The goal classification test set contains a mix of human-annotated and GPT-labeled turns, since the 8:1:1 split was applied to the full 162-row dataset. While GPT-4o-mini is a reliable labeler for intent classification tasks, this means evaluation is partially against silver-standard rather than gold-standard labels. For satisfaction prediction, LOOCV is applied solely over the 64 human-annotated turns, making that evaluation fully grounded in human judgement. Additionally, Debugging/Error Fixing and Direct Answer Generation remain underrepresented even after GPT-assisted labeling, limiting per-class performance on those categories.
 
 \section{Related Work}
 

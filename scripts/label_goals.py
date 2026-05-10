@@ -37,6 +37,7 @@ FIELDNAMES = [
     "file", "conv_id", "turn_id", "llm",
     "student_text", "llm_text", "llm_text_is_summary",
     "goal_raw", "goal", "scenario_raw", "scenario",
+    "label_source",
     "pq_clarity", "pq_specificity", "pq_context",
     "rq_coherence", "rq_correctness", "rq_guidance",
     "pq_score_raw", "pq_score_norm",
@@ -281,6 +282,7 @@ def main():
                 "goal":         goal,
                 "scenario_raw": scenario,
                 "scenario":     scenario,
+                "label_source": "gpt",
                 # Score columns left empty — not available for unannotated files
                 "pq_clarity": "", "pq_specificity": "", "pq_context": "",
                 "rq_coherence": "", "rq_correctness": "", "rq_guidance": "",

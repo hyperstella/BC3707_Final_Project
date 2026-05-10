@@ -221,6 +221,7 @@ def extract_samples(d: dict, filename: str) -> list[dict]:
             "goal": goal,
             "scenario_raw": scenario_raw,
             "scenario": scenario,
+            "label_source": "human",
         }
         row.update(scores)
         return row
@@ -261,6 +262,7 @@ FIELDNAMES = [
     "file", "conv_id", "turn_id", "llm",
     "student_text", "llm_text", "llm_text_is_summary",
     "goal_raw", "goal", "scenario_raw", "scenario",
+    "label_source",
     # Individual criteria (1–5 each)
     "pq_clarity", "pq_specificity", "pq_context",
     "rq_coherence", "rq_correctness", "rq_guidance",

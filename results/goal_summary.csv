@@ -1,4 +1,4 @@
 model,accuracy,macro_f1
-TF-IDF + LogReg (text+scores),0.3333,0.3000
-Sentence-MLP (text+scores),0.5000,0.3571
-TextCNN (text only),0.5000,0.4000
+TF-IDF + LogReg (text+scores),0.7059,0.4236
+Sentence-MLP (text+scores),0.7059,0.4648
+TextCNN (text only),0.7059,0.3000

@@ -91,6 +91,30 @@ def load_splits() -> dict | None:
     return None
 
 
+def load_human_gpt_split(label_col: str, min_class_size: int = 3):
+    """
+    Returns (df_human, df_gpt) split by label_source column.
+    Human rows are the gold-standard test set.
+    GPT rows are used for training only.
+    """
+    path = os.path.join(BASE, "data", "processed.csv")
+    df = pd.read_csv(path)
+    df = df[df["student_text"].notna() & (df["student_text"].str.strip() != "")]
+    df = df[df[label_col].notna() & ~df[label_col].isin(["", "Other", "unknown", "dry_run"])]
+
+    df_human = df[df["label_source"] == "human"].copy().reset_index(drop=True)
+    df_gpt   = df[df["label_source"] == "gpt"].copy().reset_index(drop=True)
+
+    # Drop classes with too few human examples to evaluate
+    counts = df_human[label_col].value_counts()
+    keep = counts[counts >= min_class_size].index
+    df_human = df_human[df_human[label_col].isin(keep)].copy()
+    # Keep same classes in GPT set
+    df_gpt = df_gpt[df_gpt[label_col].isin(keep)].copy()
+
+    return df_human, df_gpt
+
+
 def _load_raw_for_splits(csv_path: str, label_col: str) -> pd.DataFrame:
     """Load and filter identically to split_data.py so indices match splits.json."""
     df = pd.read_csv(csv_path)
@@ -203,7 +227,8 @@ def run_tfidf_logreg(df: pd.DataFrame, label_col: str, task_name: str, n_splits:
     from scipy.sparse import hstack
     import scipy.sparse as sp
 
-    num_cols_present = [c for c in SCORE_COLS if c in df.columns]
+    num_cols_present = [c for c in SCORE_COLS if c in df.columns
+                        and pd.to_numeric(df[c], errors="coerce").notna().any()]
     has_scores = len(num_cols_present) > 0
 
     text_pipe = Pipeline([
@@ -378,7 +403,8 @@ def run_sentence_mlp(df: pd.DataFrame, label_col: str, task_name: str, n_splits:
     texts = df["student_text"].tolist()
     text_emb = get_sentence_embeddings(texts)
 
-    num_cols_present = [c for c in SCORE_COLS if c in df.columns]
+    num_cols_present = [c for c in SCORE_COLS if c in df.columns
+                        and pd.to_numeric(df[c], errors="coerce").notna().any()]
     X_num_raw = df[num_cols_present].values.astype(float) if num_cols_present else None
 
     loo = LeaveOneOut()
@@ -611,7 +637,8 @@ def run_tfidf_fixed(df_train, df_val, df_test, label_col, task_name):
     class_names = le.classes_
     maj = _majority_acc_fixed(df_train, df_test, label_col)
 
-    num_cols_present = [c for c in SCORE_COLS if c in df_train.columns]
+    num_cols_present = [c for c in SCORE_COLS if c in df_train.columns
+                        and pd.to_numeric(df_train[c], errors="coerce").notna().any()]
     has_scores = bool(num_cols_present)
 
     text_pipe = Pipeline([
@@ -667,7 +694,8 @@ def run_sentence_mlp_fixed(df_train, df_val, df_test, label_col, task_name):
     emb_v  = all_emb[n_tr:n_tr + n_v]
     emb_te = all_emb[n_tr + n_v:]
 
-    num_cols = [c for c in SCORE_COLS if c in df_train.columns]
+    num_cols = [c for c in SCORE_COLS if c in df_train.columns
+                and pd.to_numeric(df_train[c], errors="coerce").notna().any()]
     if num_cols:
         imp = SimpleImputer(strategy="mean")
         scl = StandardScaler()

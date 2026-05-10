@@ -41,14 +41,25 @@ echo "════════════════════════�
 
 echo ""
 echo "════════════════════════════════════════"
-echo "Step 3: Build 8:1:1 train/val/test split → splits.json"
+echo "Step 3: GPT-label unannotated files → processed.csv (append)"
+echo "════════════════════════════════════════"
+if [ -z "$OPENAI_API_KEY" ]; then
+  echo "WARNING: OPENAI_API_KEY not set — skipping GPT goal labeling."
+  echo "  Export OPENAI_API_KEY=sk-... and re-run to label unannotated files."
+else
+  "$PYTHON" "$SCRIPT_DIR/label_goals.py"
+fi
+
+echo ""
+echo "════════════════════════════════════════"
+echo "Step 4: Build 8:1:1 train/val/test split → splits.json"
 echo "════════════════════════════════════════"
 "$PYTHON" "$SCRIPT_DIR/split_data.py"
 
 if [ "$SKIP_LABELING" -eq 0 ]; then
   echo ""
   echo "════════════════════════════════════════"
-  echo "Step 4: LLM labeling (OpenAI) → labeled.csv"
+  echo "Step 5: LLM labeling (OpenAI) → labeled.csv"
   echo "════════════════════════════════════════"
   if [ -z "$OPENAI_API_KEY" ]; then
     echo "WARNING: OPENAI_API_KEY not set — skipping labeling."
@@ -61,7 +72,7 @@ fi
 
 echo ""
 echo "════════════════════════════════════════"
-echo "Step 5: Train classifiers"
+echo "Step 6: Train classifiers"
 echo "════════════════════════════════════════"
 if [ "$SKIP_LABELING" -eq 1 ]; then
   "$PYTHON" "$SCRIPT_DIR/train_classifiers.py" --task goal $NO_CNN $GPT4 $NLI
