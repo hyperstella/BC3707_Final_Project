@@ -82,6 +82,9 @@
 \usepackage{subcaption}
 \usepackage{amsmath}
 \usepackage{listings}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{dblfloatfix}
 
 \lstset{
     basicstyle=\ttfamily\tiny,
@@ -94,6 +97,14 @@
 \setlength{\columnsep}{0.28in}
 \setlength{\parindent}{1em}
 \setlength{\parskip}{0pt}
+
+\setlength{\textfloatsep}{4pt plus 1pt minus 1pt}
+\setlength{\dbltextfloatsep}{4pt plus 1pt minus 1pt}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\dbltopfraction}{0.95}
+\renewcommand{\floatpagefraction}{0.75}
+\renewcommand{\dblfloatpagefraction}{0.75}
 
 \setlist[itemize]{leftmargin=1.2em,topsep=2pt,itemsep=1pt,parsep=0pt}
 \setlist[enumerate]{leftmargin=1.2em,topsep=2pt,itemsep=1pt,parsep=0pt}
@@ -117,58 +128,63 @@ cw3563 & lc3817 & ql2517
 \makeatother
 
 \begin{document}
+\raggedbottom
 
 \maketitle
 
 \begin{abstract}
-This project builds a dataset of authentic student--LLM tutoring dialogues collected from real educational interactions in Computer Science and Mathematics settings. The dataset contains approximately 100 multi-turn and single-turn conversations from around 20 students and is annotated with learning scenarios, learning goals, prompt quality, and tutoring response quality. We develop a pedagogically motivated scoring framework that evaluates not only correctness, but also coherence and educational guidance. In addition, the project investigates tutoring strategies, follow-up questioning behavior, and multi-turn confusion repair in student--LLM interactions. Through this dataset and analysis framework, we aim to better understand how students naturally use LLMs as tutoring tools and how pedagogical quality can be evaluated in real-world educational settings.
+This project builds a dataset of authentic student--LLM tutoring dialogues in Computer Science and Mathematics learning contexts. The dataset contains approximately 100 conversations from around 20 students, with 162 labeled student--LLM interaction turns. We develop an annotation framework for learning scenarios, learning goals, prompt quality, response quality, satisfaction, and multi-turn repair behavior. Our analyses show that Concept Explanation is the dominant learning goal, prompt quality has only a weak positive relationship with response quality, and incorporating pedagogical quality scores improves automated learning goal classification performance. We also find that LLMs often repair student confusion successfully through changed explanations, step-by-step structure, and concrete examples. Overall, this project provides a real-world dataset and analysis framework for studying LLM tutoring behavior in authentic educational settings.
 \end{abstract}
 
 \section{Introduction}
 
-Large Language Models (LLMs) are increasingly used as tutoring tools, yet their effectiveness as pedagogical agents remains underexplored. Although prior work studies LLMs in educational settings, much of it relies on simulated or otherwise structured interactions that may not reflect how students naturally use these systems. Existing datasets also rarely focus on authentic college-level Computer Science and Mathematics help-seeking conversations, despite these subjects being among the most common and important domains in which students rely on AI assistance. In these fields, tutoring interactions are often highly dynamic, involving debugging, multi-step reasoning, clarification requests, iterative follow-up questions, and conceptual repair across multiple turns.
+Large Language Models (LLMs) are increasingly used as tutoring tools, yet their effectiveness as pedagogical agents remains underexplored. Although prior work studies LLMs in educational settings, much of it relies on simulated or structured interactions that may not reflect how students naturally use these systems. Existing datasets also rarely focus on authentic college-level Computer Science and Mathematics help-seeking conversations, where tutoring is highly dynamic and often involves multi-step reasoning, clarification requests, and conceptual repair across multiple turns.
 
-Our project therefore aims to build a dataset of authentic student--LLM tutoring dialogues drawn from real problem-solving interactions. Unlike benchmark-style datasets or simulated tutoring systems, our dataset captures interactions initiated by real students asking genuine questions related to coursework, assignments, exams, and research projects. The dataset focuses primarily on Computer Science and Mathematics domains and emphasizes pedagogical quality in addition to correctness.
+Therefore, our project builds a dataset of authentic student--LLM tutoring dialogues drawn from real problem-solving interactions. Unlike benchmark-style datasets or simulated tutoring systems, our dataset captures interactions initiated by real students asking genuine questions about coursework, assignments, exams, and projects. The dataset emphasizes pedagogical quality in addition to correctness.
 
 The main research questions are:
 
 \begin{itemize}
-    \item How do students naturally use LLMs in tutoring interactions?
-    \item What learning goals and learning scenarios appear most frequently in student--LLM tutoring dialogues?
+    \item How do college students naturally use LLMs in tutoring interactions, especially in CS and Math?
+    \item What learning goals and scenarios appear most frequently?
     \item How does prompt quality relate to response quality?
-    \item What types of feedback and pedagogical strategies do LLMs provide?
-    \item How do LLMs respond to follow-up questions and repair student confusion across multiple turns?
+    \item How do LLMs respond to follow-up questions and repair student confusion?
+    \item Can the annotation framework we developed help models automatically predict students' learning goals and satisfaction levels?
 \end{itemize}
 
-To study these interactions, we develop an annotation and evaluation framework for analyzing tutoring behavior, learning goals, and pedagogical quality in student--LLM dialogues. Our analysis focuses not only on correctness, but also on how effectively LLMs support learning through explanation, guidance, clarification, and multi-turn interaction.
+To study these questions, we develop an annotation and evaluation framework for analyzing learning goals, tutoring quality, classification performance, and multi-turn repair behavior in student--LLM dialogues.
 
 \section{Methods}
 
 \subsection{Datasets}
 
-We collected approximately 100 student--LLM tutoring dialogues from around 20 students, primarily from Barnard College and Columbia University. The dataset mainly focuses on Computer Science and Mathematics learning scenarios, including programming assignments, debugging tasks, conceptual learning, lecture review, and exam preparation.
+We collected 100 student--LLM tutoring dialogues from around 20 students, primarily from Barnard College and Columbia University. The dataset focuses on CS and Math learning contexts, including programming assignments, debugging, conceptual learning, lecture review, and exam preparation.
 
-Since many students frequently use screenshots or image-based prompts when interacting with LLMs, we converted screenshot-based conversations into text during preprocessing and data cleaning. For example, screenshots containing code, equations, or problem statements were manually transcribed into textual dialogue format. This preprocessing step made the conversations easier to store in structured JSON format and allowed both human annotators and LLM-based annotators to process the dialogues more consistently during downstream analysis.
+During preprocessing, screenshot-based prompts containing code, equations, or problem statements were manually converted into text so that conversations could be stored consistently in JSON format. We also excluded dialogues with large amounts of graphs or highly visual outputs because they were difficult to represent reliably in text-based JSON and harder to annotate consistently.
 
-The collected dialogues were first organized into Word documents before being converted into structured JSON files. During this process, we initially attempted to use ChatGPT to automatically convert the dialogues into JSON format. However, we observed that the model sometimes summarized or abbreviated portions of the conversations even when explicitly instructed to preserve the full dialogue content. To reduce information loss, we refined our prompting strategy, emphasized full-text preservation more explicitly, and in some cases manually copied the dialogue text directly into the chat interface rather than uploading Word documents. We also experimented with Claude for dialogue conversion, which preserved long-form conversations more reliably. These preprocessing and cleaning steps were important for maintaining dialogue completeness and annotation consistency throughout the dataset construction pipeline.
-We additionally performed data cleaning to improve formatting consistency and annotation quality. In particular, we deliberately excluded dialogues containing large amounts of graphs or highly visual outputs because these are difficult to reliably represent in JSON format and harder for automated annotation systems to process consistently.
+The collected dialogues were first organized into Word documents and then converted into structured JSON files. During this process, we found that automatic conversion by ChatGPT sometimes summarized or abbreviated long conversations, even when prompted to preserve the full text. To reduce information loss, we refined the prompts, used Claude for some long-form conversion, and manually copied dialogue text when necessary. These steps helped preserve dialogue completeness and improve annotation consistency.
 
-The final dataset contains both human-annotated and AI-assisted annotated dialogues. Specifically, 40 dialogues were manually annotated by our team, while 60 additional dialogues were annotated with AI assistance. For the AI-assisted annotation process, we first provided manually annotated examples to the LLM in order to demonstrate the annotation framework and labeling logic before generating annotations for additional dialogues.
+Each JSON file stores the dialogue content, model identity, annotation labels, quality scores, and evaluator notes. For example, one dialogue asks why memory must be reaccessed after a register is overwritten; it is labeled as Assignment Help with the learning goal Concept Explanation and includes separate prompt-quality and response-quality scores.
 
-\begin{table}[h]
+The final dataset contains 100 full conversations and 162 labeled student--LLM interaction turns, where each turn consists of one student prompt paired with one corresponding LLM response. Among these, 64 turns from 40 conversations were human-annotated by our team, while 98 turns from 60 additional conversations were labeled using ChatGPT. Table~\ref{tab:dataset-stats} summarizes the dataset.
+
+\begin{table}[htbp]
 \centering
 \small
 \begin{tabular}{lc}
 \toprule
 Statistic & Value \\
 \midrule
-Total dialogues & $\sim$100 \\
+Dialogue files & 100 \\
 Students & $\sim$20 \\
-Human-annotated & 40 \\
-AI-assisted annotated & 60 \\
+Labeled turns & 162 \\
+Human-annotated turns & 64 \\
+GPT-labeled turns & 98 \\
+Human-annotated conversations & 40 \\
+GPT-labeled conversations & 60 \\
+Multi-turn conversations & 33 \\
+Single-turn conversations & 67 \\
 Primary domains & CS / Math \\
-Multi-turn dialogues & 70\% \\
-Single-turn dialogues & 30\% \\
 Storage format & JSON \\
 \bottomrule
 \end{tabular}
@@ -176,80 +192,19 @@ Storage format & JSON \\
 \label{tab:dataset-stats}
 \end{table}
 
-Each dialogue is stored as a structured JSON object containing the conversation content, annotation labels, prompt quality scores, response quality scores, and evaluator notes. An abbreviated example is shown below:
-
-\begin{figure}[h]
-\centering
-\begin{minipage}{0.95\columnwidth}
-
-\begin{lstlisting}[caption={Abbreviated example of an annotated tutoring dialogue.},
-label={fig:json-example}]
-{
-  "conversation_id": "D46",
-  "llm": "GPT",
-  "conversation": [
-    {
-      "role": "student",
-      "content":
-      "Why do you need to
-      reaccess memory after
-      overwriting a register?"
-    },
-
-    {
-      "role": "llm",
-      "content":
-      "The response explains
-      that memory still stores
-      the value while the
-      register does not."
-    }
-  ],
-
-  "annotations": {
-    "Scenario":
-    "Assignment",
-
-    "Goal":
-    "Concept Explanation",
-
-    "prompt_quality": {
-      "Clarity": 4,
-      "Specificity": 4,
-      "Context": 3,
-      "Total": 11
-    },
-
-    "response_quality": {
-      "Coherence": 5,
-      "Correctness": 5,
-      "Guidance": 5,
-      "Total": 30
-    }
-  }
-}
-\end{lstlisting}
-
-\end{minipage}
-\end{figure}
-
-The corresponding annotation labels classify this interaction as an Assignment-related dialogue with the learning goal of Concept Explanation. The dialogue additionally includes prompt quality and response quality scores based on our pedagogical evaluation framework.
-
 \subsection{Models and Approach}
 
-Our project focuses on analyzing authentic tutoring interactions rather than training a new LLM from scratch. The dialogues in our dataset were collected from student interactions with several widely used general-purpose LLM systems, including ChatGPT \citep{openai2023gpt4}, Gemini \citep{team2023gemini}, and Claude \citep{anthropic2025claude}.
+Our project analyzes authentic tutoring interactions rather than training a new LLM from scratch. The dialogues were collected from student interactions with widely used general-purpose transformer-based LLM systems, including ChatGPT \citep{openai2023gpt4}, Gemini \citep{team2023gemini}, and Claude \citep{anthropic2024claude3}. The collected ChatGPT dialogues include GPT-4.5, GPT-5, and GPT-5.5 interactions in both Thinking and Instant modes; Gemini dialogues include Gemini 3 in Fast and Thinking modes; and Claude dialogues include Claude Sonnet 4.6.
 
-For ChatGPT, the collected dialogues include interactions with GPT-4.5, GPT-5, and GPT-5.5 models, including both Thinking and Instant modes. For Gemini, the dataset primarily contains interactions with Gemini 3 in both Fast and Thinking modes. The dataset also includes dialogues interacted with Claude Sonnet 4.6.
+These systems were selected because they are among the most commonly used AI assistants in real student learning environments, particularly for coursework, debugging, conceptual learning, and exam preparation.
 
-All of these systems are transformer-based large language models designed for general-purpose conversational and reasoning tasks. These models were selected because they are among the most commonly used AI assistants in real student learning environments. Rather than evaluating highly specialized tutoring systems, our project focuses on the general-purpose LLMs that students already use informally for college-level learning.
-
-In addition to collecting the dialogues, we developed a structured annotation framework for analyzing tutoring behavior and pedagogical quality. To establish annotation consistency, 60 dialogues were manually annotated first in order to develop annotation guidelines and identify common tutoring patterns. The remaining dialogues were then annotated with ChatGPT 5.5 based on the established annotation framework.
+For GPT-assisted annotation, we used GPT-4o-mini with few-shot prompting and manually annotated examples to label additional turns according to our annotation framework. We selected GPT-4o-mini because it provides relatively strong instruction-following performance while remaining efficient and cost-effective for large-scale annotation tasks.
 
 \subsection{Experiments}
 
-To systematically analyze tutoring behavior and pedagogical quality, we developed a two-level annotation framework for the collected dialogues.
+To analyze tutoring behavior and pedagogical quality, we developed a two-level annotation framework for the collected dialogues.
 
-First, each student's prompt is categorized according to the learning scenario:
+Each student prompt is first categorized according to the learning scenario:
 
 \begin{itemize}
     \item Assignment Help
@@ -259,7 +214,7 @@ First, each student's prompt is categorized according to the learning scenario:
     \item Not Clear
 \end{itemize}
 
-Second, each student's prompt is labeled according to the learning goal:
+Each prompt is then labeled according to the learning goal:
 
 \begin{itemize}
     \item Concept Explanation
@@ -270,11 +225,9 @@ Second, each student's prompt is labeled according to the learning goal:
     \item Debugging / Error Fixing
 \end{itemize}
 
-To establish annotation consistency, 60 dialogues were manually annotated first in order to develop annotation guidelines and identify common tutoring patterns. The remaining 40 dialogues were then annotated with ChatGPT 5.5 based on the established annotation structure and labeling framework.
+To establish annotation consistency and improve annotation efficiency, 40 conversations were manually annotated first to develop annotation guidelines and identify common tutoring patterns. The remaining 60 conversations were then annotated with GPT-4o-mini using few-shot prompting examples. Learning goals and prompt/response quality scores were annotated at the turn level, where each turn consists of one student prompt paired with one corresponding LLM response. In contrast, learning scenarios were annotated at the conversation level to reflect the broader educational context of the interaction.
 
-We additionally evaluate both student prompts and LLM responses using numerical scoring systems.
-
-Prompt quality is evaluated according to three criteria:
+We additionally evaluate prompt quality and response quality on the 64 human-annotated turns. Prompt quality is scored from 1 to 5 across three dimensions:
 
 \begin{itemize}
     \item Clarity of Intent
@@ -282,9 +235,7 @@ Prompt quality is evaluated according to three criteria:
     \item Context Provision
 \end{itemize}
 
-Each criterion is scored on a scale from 1 to 5, and the total prompt quality score is computed as the sum of the three categories.
-
-Response quality is evaluated according to:
+Response quality is evaluated using:
 
 \begin{itemize}
     \item Coherence
@@ -292,27 +243,31 @@ Response quality is evaluated according to:
     \item Guidance Quality
 \end{itemize}
 
-Unlike prompt quality, response quality uses a weighted scoring strategy:
+The weighted response quality score is computed as:
 
 \[
 S_r = 2C + R + 3G
 \]
 
-where $C$ denotes coherence, $R$ denotes correctness, and $G$ denotes guidance quality.
+where $C$ denotes coherence, $R$ denotes correctness, and $G$ denotes guidance quality. Guidance receives the highest weight because effective tutoring should help students build understanding and solve problems independently. Coherence is weighted second because tutoring responses must remain logically organized and easy to follow. Correctness receives the lowest weight because modern LLMs already achieve relatively high factual accuracy on many common educational tasks.
 
-We intentionally assign the highest weight to Guidance Quality because the primary goal of tutoring is not simply to provide correct answers, but to support student understanding and learning progression. A response may be factually correct while still being pedagogically ineffective if it lacks explanation, scaffolding, or meaningful guidance.
+We then train classifiers for goal prediction and satisfaction prediction. Goal prediction uses the full 162-turn labeled dataset, while satisfaction prediction uses the 64 human-annotated turns. We compare three models:
 
-Coherence is assigned the second-highest weight because responses must remain logically organized and understandable in order to function effectively as tutoring interactions. Correctness remains important, but receives a smaller weight because correctness alone does not necessarily indicate strong tutoring behavior. Therefore, our research focuses more heavily on the pedagogical quality of tutoring interactions, including guidance, explanation structure, and learning support.
+\begin{itemize}
+    \item TF-IDF with logistic regression
+    \item Sentence-Transformer MLP
+    \item TextCNN
+\end{itemize}
 
-Using the annotated dataset, we conduct several forms of pedagogical and interaction-based analysis. These include examining the tutoring strategies commonly used by LLMs, studying how models respond to follow-up questions, and analyzing how they repair student confusion across multiple turns. We also analyze relationships between prompt quality and response quality, compare tutoring behaviors across different learning scenarios and learning goals, and investigate how interaction patterns influence pedagogical effectiveness.
+Finally, we analyze repair behavior in the 64 follow-up exchanges drawn from 33 multi-turn conversations. Each exchange is labeled for repair outcome and repair behavior to study how LLMs respond to students' clarification and confusion.
 
 \section{Results and Analyses}
 
 \subsection{Dataset Overview}
 
-The final dataset contains 162 labeled student turns drawn from 97 dialogue files (95 unique conversation IDs). Of these, 64 turns are human-annotated by our team (41 conversations) and 98 turns were labeled using GPT-4o-mini few-shot prompting on the remaining conversations. Table~\ref{tab:goal-dist} shows the combined goal distribution. Concept Explanation (59\%) dominates, reflecting that students most commonly seek explanations of concepts they have not fully understood. Answer Clarification (17\%) and Step-by-Step Guidance (12\%) are the next most frequent, while Debugging/Error Fixing (7\%) and Direct Answer Generation (4\%) are less common.
+Table~\ref{tab:goal-dist} shows the learning goal distribution across the 162 labeled student--LLM interaction turns. Concept Explanation (59\%) is the dominant category, suggesting that students most frequently use LLMs to better understand unfamiliar concepts. Answer Clarification (17\%) and Step-by-Step Guidance (12\%) are also common, while Debugging/Error Fixing (7\%) and Direct Answer Generation (4\%) appear less frequently.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \small
 \begin{tabular}{lcc}
@@ -330,44 +285,48 @@ Direct Answer Generation &  7 &  4\% \\
 \label{tab:goal-dist}
 \end{table}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
-\includegraphics[width=\linewidth]{figures/dataset_distributions.png}
+\includegraphics[width=0.95\linewidth]{figures/dataset_distributions.png}
 \caption{Scenario and learning goal distributions across the 162 labeled turns.}
 \label{fig:dataset-dists}
 \end{figure}
 
-For learning scenarios, Lecture Learning (46\%) is the most common context, followed by Not Clear (35\%), Assignment Help (14\%), and Project/Research Support (5\%); Exam Preparation appears only once (0.6\%). Affective labels (e.g., satisfaction) are handled in a separate annotation pass and are not part of \texttt{processed.csv}.
+For learning scenarios, Lecture Learning (46\%) is the most common context, followed by Not Clear (35\%), Assignment Help (14\%), and Project/Research Support (5\%); Exam Preparation appears only once (0.6\%). Figure~\ref{fig:dataset-dists} visualizes these distributions.
 
-\begin{figure}[h]
+\begin{figure}[tbp]
 \centering
-\includegraphics[width=0.95\linewidth]{figures/top_pedagogical_strategies_gpt.png}
+\includegraphics[width=0.9\linewidth]{figures/top_pedagogical_strategies_gpt.png}
 \caption{Top pedagogical strategies in GPT responses, detected via simple pattern matching over assistant text (exploratory; $n=128$ GPT turns).}
 \label{fig:top-strategies-gpt}
 \end{figure}
 
 \subsection{Prompt and Response Quality}
 
-Across the 64 human-annotated turns, the mean normalized prompt quality score is $0.757$ ($\sigma = 0.216$), and the mean normalized response quality score is $0.810$ ($\sigma = 0.192$). Both are relatively high, consistent with the finding that modern LLMs produce coherent and correct responses even to moderately specified prompts. The slightly higher mean response quality suggests that LLMs compensate for underspecified student prompts.
+We analyzed the relationship between prompt quality and response quality using the 64 human-annotated turns collected from 40 conversations. We focused specifically on human annotations because they are more likely to reflect reliable pedagogical judgments than GPT-generated annotations, which may introduce additional noise or systematic bias. During our preliminary experiments, we observed that GPT-based annotators occasionally assigned disproportionately high scores to LLM responses, suggesting a potential self-evaluation bias in automated scoring.
 
-The Pearson correlation between prompt quality and response quality is $r = 0.228$ ($p = 0.070$), indicating a weak positive relationship. While higher-quality prompts are associated with marginally better responses, the relationship is not strong, suggesting that response quality is only loosely coupled to prompt specificity. This may reflect the robustness of modern LLMs across a wide range of prompt quality levels. Figure~\ref{fig:pq-rq-scatter} visualizes this relationship.
+Across the 64 human-annotated turns, the mean normalized prompt quality score is $0.757$ ($\sigma = 0.216$), while the mean normalized response quality score is $0.810$ ($\sigma = 0.192$). Both averages are relatively high, suggesting that modern LLMs generally produce coherent and pedagogically effective responses even when student prompts are only moderately detailed or well-specified. The slightly higher average response quality further suggests that LLMs are often able to compensate for incomplete or underspecified prompts.
 
-\begin{figure}[h]
+The Pearson correlation between prompt quality and response quality is $r = 0.228$ ($p = 0.070$), indicating a weak positive relationship between the two variables. Although higher-quality prompts are associated with marginally stronger responses, the correlation remains relatively small, suggesting that response quality is only loosely dependent on prompt specificity and clarity. This finding may reflect the robustness of modern LLMs across a broad range of prompt quality levels. Figure~\ref{fig:pq-rq-scatter} visualizes this relationship.
+
+\begin{figure}[tbp]
 \centering
-\includegraphics[width=\linewidth]{figures/prompt_response_scatter.png}
+\includegraphics[width=0.95\linewidth]{figures/prompt_response_scatter.png}
 \caption{Normalized prompt quality vs.\ response quality for the 64 human-annotated turns, with OLS best-fit line ($r=0.228$, $p=0.070$).}
 \label{fig:pq-rq-scatter}
 \end{figure}
 
 \subsection{Goal and Satisfaction Classification}
 
-To evaluate whether annotations can support automated intent detection, we trained three classifiers on the goal prediction and satisfaction prediction tasks: (1) TF-IDF with logistic regression, combining bag-of-ngrams features with normalized quality scores; (2) a Sentence-Transformer MLP using \texttt{all-MiniLM-L6-v2} embeddings concatenated with quality scores; and (3) a TextCNN with learned token embeddings.
+To evaluate whether our annotation framework can support automated pedagogical intent detection, we trained three classifiers on the goal prediction and satisfaction prediction tasks: (1) TF-IDF with logistic regression, combining bag-of-ngrams features with normalized quality scores; (2) a Sentence-Transformer MLP using \texttt{all-MiniLM-L6-v2} embeddings concatenated with quality scores; and (3) a TextCNN with learned token embeddings.
 
-Initial experiments using only the 64 human-annotated turns produced goal prediction accuracy of approximately 0.50 on a 6-sample test set — a result too unstable to interpret, as a single misclassification changes accuracy by 16.7 percentage points. To address this, we applied GPT-4o-mini few-shot labeling to the 57 previously unannotated conversations, expanding the labeled dataset from 64 to 162 turns. This allowed a more reliable 8:1:1 split with 17 test samples and substantially more training data, raising accuracy to 0.706 and producing stable macro-F1 estimates.
+All experiments were conducted at the turn level rather than the conversation level. Initial experiments using only the 64 human-annotated turns produced goal prediction accuracy of approximately 0.50 on a 6-sample test set. However, this result was too unstable to interpret reliably, since a single misclassification changes accuracy by 16.7 percentage points.
 
-For goal prediction, the full 162-row dataset was split 8:1:1 stratified by class (128 train, 17 val, 17 test). The training set includes both human-annotated and GPT-labeled turns; the test set similarly contains a mix of both sources. For satisfaction prediction, LOOCV was applied over the 64 human-annotated turns. Results are reported in Table~\ref{tab:clf-results}.
+To increase the amount of labeled training data, we applied GPT-4o-mini few-shot annotation to previously unlabeled turns from the remaining conversations. Using the manually annotated examples as demonstrations, GPT-4o-mini generated additional labels following the established annotation framework. This process expanded the dataset from 64 human-annotated turns to 162 labeled turns in total, enabling a more reliable 8:1:1 train-validation-test split with 17 held-out test samples and substantially more training data.
 
-\begin{table}[h]
+For goal prediction, the 162-turn dataset was split 8:1:1 stratified by class (128 train, 17 validation, 17 test). Both the training and test sets contain a mixture of human-annotated and GPT-labeled examples. For satisfaction prediction, leave-one-out cross-validation (LOOCV) was performed on the 64 human-annotated turns. Results are summarized in Table~\ref{tab:clf-results}.
+
+\begin{table}[htbp]
 \centering
 \small
 \begin{tabular}{llcc}
@@ -385,52 +344,58 @@ Task & Model & Acc. & Macro-F1 \\
   & TextCNN                & 0.547 & 0.298 \\
 \bottomrule
 \end{tabular}
-\caption{Classification results. Goal: majority baseline $= 0.588$ (17-sample test set, $n=162$). Satisfaction: majority baseline $\approx 0.547$ (LOOCV, $n=64$).}
+\caption{Classification results. Goal prediction majority baseline $= 0.588$ (17-sample test set, $n=162$). Satisfaction prediction majority baseline $\approx 0.547$ (LOOCV, $n=64$).}
 \label{tab:clf-results}
 \end{table}
 
-For goal prediction, TF-IDF and Sentence-MLP both achieve 70.6\% accuracy, outperforming the majority baseline of 58.8\% by 11.8 percentage points. A key finding is the contribution of GPT-scored response quality features. Before scoring the unannotated turns for coherence, correctness, and guidance, TF-IDF achieved a macro-F1 of 0.424 and Sentence-MLP 0.465. After scoring, macro-F1 rose to 0.531 for TF-IDF ($+$0.107) and 0.524 for Sentence-MLP ($+$0.059). This improvement demonstrates that pedagogical quality scores carry discriminative signal beyond text features alone — particularly for distinguishing minority classes such as Debugging/Error Fixing and Step-by-Step Guidance, which are harder to separate from surface text. TF-IDF achieves the best macro-F1 (0.531) and correctly classifies Debugging/Error Fixing with perfect precision and recall. TextCNN, which uses text only and cannot leverage quality scores, drops to 58.8\% accuracy and macro-F1 of 0.217, collapsing largely to the majority class — further confirming the value of quality score features for this task.
+For goal prediction, both TF-IDF and Sentence-MLP achieve 70.6\% accuracy, outperforming the 58.8\% majority baseline by 11.8 percentage points. A particularly important finding is the contribution of pedagogical quality features. Incorporating coherence, correctness, and guidance scores substantially improved classification performance across both TF-IDF and Sentence-MLP models. Before adding quality-score features, TF-IDF achieved a macro-F1 of 0.424 and Sentence-MLP achieved 0.465. After incorporating the quality scores, macro-F1 increased to 0.531 for TF-IDF ($+0.107$) and 0.524 for Sentence-MLP ($+0.059$).
 
-For satisfaction prediction, TF-IDF with logistic regression achieves the highest accuracy (57.8\%) and macro-F1 (0.525), both above the 54.7\% majority baseline. The simpler TF-IDF model outperforming neural alternatives is expected when training data is scarce: n-gram features generalise more directly from short text than learned representations, which require more examples. TextCNN's low macro-F1 (0.298) despite reasonable accuracy reveals class collapse — it predominantly predicts the majority class (neutral).
+These improvements suggest that pedagogical quality signals provide meaningful discriminative information beyond surface-level textual features alone. In particular, the quality scores appear especially useful for distinguishing minority classes such as Debugging/Error Fixing and Step-by-Step Guidance, which are more difficult to separate using text features only. TF-IDF achieves the strongest overall macro-F1 (0.531) and correctly classifies Debugging/Error Fixing with perfect precision and recall. In contrast, TextCNN, which relies only on text features and cannot leverage explicit pedagogical quality scores, drops to 58.8\% accuracy and a macro-F1 of 0.217, collapsing largely to the majority class. This further supports the value of incorporating pedagogical evaluation signals into downstream educational NLP tasks.
+
+For satisfaction prediction, TF-IDF with logistic regression again achieves the strongest overall performance, with 57.8\% accuracy and a macro-F1 of 0.525, both slightly above the 54.7\% majority baseline. The stronger performance of TF-IDF relative to neural models is expected given the limited dataset size: sparse n-gram features generalize more effectively from small datasets than learned neural representations, which typically require substantially more training data. Although TextCNN achieves moderate accuracy, its low macro-F1 (0.298) indicates substantial class imbalance effects, as the model predominantly predicts the neutral majority class rather than learning balanced decision boundaries across all categories.
 
 \subsection{Confusion Matrices}
 
-Figures~\ref{fig:goal-cms} and~\ref{fig:sat-cms} show the confusion matrices for the goal and satisfaction tasks respectively. For goal prediction, all three models classify Concept Explanation reliably (the dominant class), while Debugging/Error Fixing and Direct Answer Generation are consistently missed due to their small support. The Sentence-MLP shows the most balanced recall across classes. For satisfaction prediction, TF-IDF captures all three classes to some degree, while TextCNN collapses almost entirely to the neutral majority class.
+Figures~\ref{fig:goal-cms} and~\ref{fig:sat-cms} (on the next page) show the confusion matrices for the goal prediction and satisfaction prediction tasks respectively.
 
-\begin{figure*}[t]
+The confusion matrices further reveal strong class imbalance effects across both tasks. For goal prediction, all three models classify Concept Explanation reliably because it is the dominant class in the dataset. In contrast, minority classes such as Debugging/Error Fixing and Direct Answer Generation remain more difficult to distinguish due to limited training examples and greater semantic overlap with neighboring categories. Among the three models, Sentence-MLP demonstrates the most balanced recall across classes, while TF-IDF achieves the strongest overall precision on minority categories.
+
+For satisfaction prediction, TF-IDF captures all three satisfaction levels with relatively balanced predictions, while TextCNN collapses largely to the neutral majority class. This behavior is consistent with the quantitative results in Table~\ref{tab:clf-results}, where TextCNN achieves moderate accuracy but substantially lower macro-F1 due to poor minority-class recognition.
+
+\begin{figure*}[tbp]
 \centering
 \begin{subfigure}[t]{0.32\textwidth}
-  \includegraphics[width=\linewidth]{../results/goal_tfidf_cm.png}
+  \includegraphics[width=\linewidth]{results/goal_tfidf_cm.png}
   \caption{TF-IDF + LogReg}
 \end{subfigure}
 \hfill
 \begin{subfigure}[t]{0.32\textwidth}
-  \includegraphics[width=\linewidth]{../results/goal_sentence_mlp_cm.png}
+  \includegraphics[width=\linewidth]{results/goal_sentence_mlp_cm.png}
   \caption{Sentence-MLP}
 \end{subfigure}
 \hfill
 \begin{subfigure}[t]{0.32\textwidth}
-  \includegraphics[width=\linewidth]{../results/goal_textcnn_cm.png}
+  \includegraphics[width=\linewidth]{results/goal_textcnn_cm.png}
   \caption{TextCNN}
 \end{subfigure}
 \caption{Confusion matrices for goal prediction (5-class, test $n=17$).}
 \label{fig:goal-cms}
 \end{figure*}
 
-\begin{figure*}[t]
+\begin{figure*}[tbp]
 \centering
 \begin{subfigure}[t]{0.32\textwidth}
-  \includegraphics[width=\linewidth]{../results/satisfaction_tfidf_cm.png}
+  \includegraphics[width=\linewidth]{results/satisfaction_tfidf_cm.png}
   \caption{TF-IDF + LogReg}
 \end{subfigure}
 \hfill
 \begin{subfigure}[t]{0.32\textwidth}
-  \includegraphics[width=\linewidth]{../results/satisfaction_sentence_mlp_cm.png}
+  \includegraphics[width=\linewidth]{results/satisfaction_sentence_mlp_cm.png}
   \caption{Sentence-MLP}
 \end{subfigure}
 \hfill
 \begin{subfigure}[t]{0.32\textwidth}
-  \includegraphics[width=\linewidth]{../results/satisfaction_textcnn_cm.png}
+  \includegraphics[width=\linewidth]{results/satisfaction_textcnn_cm.png}
   \caption{TextCNN}
 \end{subfigure}
 \caption{Confusion matrices for satisfaction prediction (3-class, LOOCV $n=64$).}
@@ -445,7 +410,7 @@ To study how LLMs handle student confusion across multiple turns, we analyzed al
 
 \paragraph{Repair behavior} was tagged with any applicable subset of six strategies: Changed strategy after follow-up; Used simplification; Used step-by-step structure; Used analogy or visual explanation; Used concrete example; Student showed further confusion afterward.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \small
 \begin{tabular}{lcc}
@@ -462,7 +427,7 @@ Repeated Misconception  &  0 &  0.0\% \\
 \label{tab:repair-outcomes}
 \end{table}
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \small
 \begin{tabular}{lcc}
@@ -483,23 +448,23 @@ Used analogy or visual explanation     &  2 &  3.1\% \\
 
 As shown in Tables~\ref{tab:repair-outcomes} and~\ref{tab:repair-behaviors} and Figure~\ref{fig:repair}, the results indicate that LLMs successfully repair student confusion in a majority of follow-up exchanges (57.8\%), with partial resolution in an additional 37.5\%. Outright failure is rare (4.7\%), and no instance of a reinforced misconception was observed. The most common repair strategy is changing the explanatory approach after a follow-up (65.6\%), followed by imposing step-by-step structure (50.0\%) and providing a concrete example (31.2\%). Simplification is used in one quarter of exchanges. Analogy or visual explanation and persistent student confusion are both uncommon (3.1\%), suggesting that most students either resolve their confusion after a single repair attempt or disengage rather than continue the conversation.
 
-\begin{figure}[h]
+\begin{figure}[tbp]
 \centering
-\includegraphics[width=\linewidth]{figures/repair_outcomes.png}
+\includegraphics[width=0.95\linewidth]{figures/repair_outcomes.png}
 \caption{Repair outcome distribution across 64 follow-up turns.}
 \label{fig:repair-outcomes}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[tbp]
 \centering
-\includegraphics[width=\linewidth]{figures/repair_behaviors.png}
+\includegraphics[width=0.95\linewidth]{figures/repair_behaviors.png}
 \caption{Repair behavior frequency (multiple tags allowed per exchange).}
 \label{fig:repair}
 \end{figure}
 
-\subsection{Limitations}
+\subsection{Limitations of the Classification}
 
-The goal classification test set contains a mix of human-annotated and GPT-labeled turns, since the 8:1:1 split was applied to the full 162-row dataset. While GPT-4o-mini is a reliable labeler for intent classification tasks, this means evaluation is partially against silver-standard rather than gold-standard labels. For satisfaction prediction, LOOCV is applied solely over the 64 human-annotated turns, making that evaluation fully grounded in human judgement. Additionally, Debugging/Error Fixing and Direct Answer Generation remain underrepresented even after GPT-assisted labeling, limiting per-class performance on those categories.
+The goal classification experiments use a mixture of human-annotated and GPT-labeled turns, since the 8:1:1 split was applied to the full 162-turn dataset. As a result, evaluation is conducted partly against silver-standard rather than fully human-validated labels. In contrast, satisfaction prediction uses only the 40 human-annotated annotations through LOOCV, making that evaluation fully grounded in human judgement. Additionally, minority classes such as Debugging/Error Fixing and Direct Answer Generation remain underrepresented, limiting per-class classification performance.
 
 \section{Related Work}
 
@@ -519,17 +484,15 @@ Building on these strands of work, our project focuses specifically on authentic
 
 \section{Conclusion}
 
-In this project, we build a dataset of authentic student--LLM tutoring dialogues focused primarily on Computer Science and Mathematics learning contexts. Motivated by the growing use of LLMs as informal educational tools, our project aims to better understand how students naturally interact with these systems and whether LLMs provide meaningful pedagogical support beyond simply generating correct answers.
+In this project, we build a dataset of authentic student--LLM tutoring dialogues focused on Computer Science and Mathematics learning. Motivated by the growing use of LLMs as informal educational tools, our project studies how students naturally interact with these systems and whether LLM responses provide meaningful pedagogical support beyond correctness alone.
 
-Our main research questions focus on how students use LLMs for learning, what tutoring strategies commonly appear in model responses, how prompt quality relates to response quality, and how LLMs respond to student confusion across multiple turns. To study these questions, we developed an annotation and evaluation framework for analyzing learning scenarios, learning goals, pedagogical guidance, and tutoring quality in student--LLM interactions.
+Our analyses show that Concept Explanation is the dominant learning goal, while Lecture Learning is the most common scenario. Prompt quality and response quality show only a weak positive correlation, suggesting that modern LLMs can often generate coherent and helpful responses even when student prompts are moderately specified. In classification experiments, TF-IDF and Sentence-MLP outperform the majority baseline for goal prediction, and adding pedagogical quality scores improves macro-F1. Our repair analysis further shows that LLMs often address student confusion successfully, most commonly by changing explanation strategy, using step-by-step structure, and providing concrete examples.
 
-Although our analyses remain preliminary, the project demonstrates the feasibility of studying authentic tutoring interactions at scale and highlights the importance of evaluating pedagogical quality in addition to correctness. Our dataset also provides a structured foundation for future computational analysis of tutoring behavior, student engagement, and multi-turn educational interactions.
+The project has several limitations. The dataset is relatively small, especially for supervised classification, and some evaluations rely partly on GPT-labeled silver-standard annotations rather than fully human-validated labels. The dataset also primarily contains English-language dialogues from Columbia and Barnard students, so it may not capture tutoring patterns across broader linguistic, cultural, or educational contexts. Annotation subjectivity remains another challenge, especially for scoring guidance quality and pedagogical usefulness.
 
-One limitation of the current project is the relatively small dataset size, which limits the reliability of large-scale supervised learning experiments and broader statistical conclusions. In addition, the dataset primarily contains English-language dialogues collected from students at Columbia University and Barnard College. As a result, the current dataset may not fully capture tutoring behaviors and learning patterns across different educational, linguistic, and cultural contexts. Annotation subjectivity also remains an important challenge, particularly when evaluating pedagogical usefulness and guidance quality.
+Future work could expand the dataset across more institutions, languages, and student populations; increase the number of human annotators; measure inter-annotator agreement; and compare LLM systems more systematically. Additional work could also explore prompting or fine-tuning methods for improving pedagogical tutoring behavior.
 
-Future work could expand the dataset to include more diverse student populations, languages, and educational environments, while also increasing the number of human annotators and measuring inter-annotator agreement. Additional directions include comparing different LLM systems more systematically, conducting larger-scale quantitative analyses, and exploring prompting or fine-tuning methods for improving pedagogical tutoring behavior.
-
-Overall, this project contributes a real-world dataset and pedagogically grounded analysis framework for studying LLM tutoring behavior in authentic educational settings, laying a foundation for future research on building more effective, reliable, and student-centered AI tutoring systems.
+Overall, this project contributes a real-world dataset and pedagogically grounded analysis framework for studying LLM tutoring behavior in authentic educational settings, laying a foundation for future research on more effective, reliable, and student-centered AI tutoring systems.
 
 \section{Contribution Statement}
 
