@@ -342,6 +342,8 @@ The Pearson correlation between prompt quality and response quality is $r = 0.22
 
 To evaluate whether annotations can support automated intent detection, we trained three classifiers on the goal prediction and satisfaction prediction tasks: (1) TF-IDF with logistic regression, combining bag-of-ngrams features with normalized quality scores; (2) a Sentence-Transformer MLP using \texttt{all-MiniLM-L6-v2} embeddings concatenated with quality scores; and (3) a TextCNN with learned token embeddings.
 
+Initial experiments using only the 64 human-annotated turns produced goal prediction accuracy of approximately 0.50 on a 6-sample test set — a result too unstable to interpret, as a single misclassification changes accuracy by 16.7 percentage points. To address this, we applied GPT-4o-mini few-shot labeling to the 57 previously unannotated conversations, expanding the labeled dataset from 64 to 162 turns. This allowed a more reliable 8:1:1 split with 17 test samples and substantially more training data, raising accuracy to 0.706 and producing stable macro-F1 estimates.
+
 For goal prediction, the full 162-row dataset was split 8:1:1 stratified by class (128 train, 17 val, 17 test). The training set includes both human-annotated and GPT-labeled turns; the test set similarly contains a mix of both sources. For satisfaction prediction, LOOCV was applied over the 64 human-annotated turns. Results are reported in Table~\ref{tab:clf-results}.
 
 \begin{table}[h]
