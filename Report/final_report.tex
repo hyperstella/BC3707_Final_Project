@@ -350,7 +350,14 @@ For learning scenarios, Lecture Learning (46\%) is the most common context, foll
 
 Across the 64 human-annotated turns, the mean normalized prompt quality score is $0.757$ ($\sigma = 0.216$), and the mean normalized response quality score is $0.810$ ($\sigma = 0.192$). Both are relatively high, consistent with the finding that modern LLMs produce coherent and correct responses even to moderately specified prompts. The slightly higher mean response quality suggests that LLMs compensate for underspecified student prompts.
 
-The Pearson correlation between prompt quality and response quality is $r = 0.228$, indicating a weak positive relationship. While higher-quality prompts are associated with marginally better responses, the relationship is not strong, suggesting that response quality is only loosely coupled to prompt specificity. This may reflect the robustness of modern LLMs across a wide range of prompt quality levels.
+The Pearson correlation between prompt quality and response quality is $r = 0.228$ ($p = 0.070$), indicating a weak positive relationship. While higher-quality prompts are associated with marginally better responses, the relationship is not strong, suggesting that response quality is only loosely coupled to prompt specificity. This may reflect the robustness of modern LLMs across a wide range of prompt quality levels. Figure~\ref{fig:pq-rq-scatter} visualizes this relationship.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{figures/prompt_response_scatter.png}
+\caption{Normalized prompt quality vs.\ response quality for the 64 human-annotated turns, with OLS best-fit line ($r=0.228$, $p=0.070$).}
+\label{fig:pq-rq-scatter}
+\end{figure}
 
 \subsection{Goal and Satisfaction Classification}
 
