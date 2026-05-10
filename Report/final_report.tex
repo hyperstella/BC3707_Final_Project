@@ -153,7 +153,7 @@ Since many students frequently use screenshots or image-based prompts when inter
 The collected dialogues were first organized into Word documents before being converted into structured JSON files. During this process, we initially attempted to use ChatGPT to automatically convert the dialogues into JSON format. However, we observed that the model sometimes summarized or abbreviated portions of the conversations even when explicitly instructed to preserve the full dialogue content. To reduce information loss, we refined our prompting strategy, emphasized full-text preservation more explicitly, and in some cases manually copied the dialogue text directly into the chat interface rather than uploading Word documents. We also experimented with Claude for dialogue conversion, which preserved long-form conversations more reliably. These preprocessing and cleaning steps were important for maintaining dialogue completeness and annotation consistency throughout the dataset construction pipeline.
 We additionally performed data cleaning to improve formatting consistency and annotation quality. In particular, we deliberately excluded dialogues containing large amounts of graphs or highly visual outputs because these are difficult to reliably represent in JSON format and harder for automated annotation systems to process consistently.
 
-The final dataset contains both human-annotated and AI-assisted annotated dialogues. Specifically, 60 dialogues were manually annotated by our team, while 40 additional dialogues were annotated with AI assistance. For the AI-assisted annotation process, we first provided manually annotated examples to the LLM in order to demonstrate the annotation framework and labeling logic before generating annotations for additional dialogues.
+The final dataset contains both human-annotated and AI-assisted annotated dialogues. Specifically, 40 dialogues were manually annotated by our team, while 60 additional dialogues were annotated with AI assistance. For the AI-assisted annotation process, we first provided manually annotated examples to the LLM in order to demonstrate the annotation framework and labeling logic before generating annotations for additional dialogues.
 
 \begin{table}[h]
 \centering
@@ -164,8 +164,8 @@ Statistic & Value \\
 \midrule
 Total dialogues & $\sim$100 \\
 Students & $\sim$20 \\
-Human-annotated & 60 \\
-AI-assisted annotated & 40 \\
+Human-annotated & 40 \\
+AI-assisted annotated & 60 \\
 Primary domains & CS / Math \\
 Multi-turn dialogues & 70\% \\
 Single-turn dialogues & 30\% \\
@@ -310,7 +310,7 @@ Using the annotated dataset, we conduct several forms of pedagogical and interac
 
 \subsection{Dataset Overview}
 
-The final dataset contains 162 labeled student turns drawn from 97 conversations. Of these, 64 turns are human-annotated by our team and 98 turns were labeled using GPT-4o-mini few-shot prompting applied to the 57 previously unannotated conversations. Table~\ref{tab:goal-dist} shows the combined goal distribution. Concept Explanation (59\%) dominates, reflecting that students most commonly seek explanations of concepts they have not fully understood. Answer Clarification (17\%) and Step-by-Step Guidance (12\%) are the next most frequent, while Debugging/Error Fixing (7\%) and Direct Answer Generation (4\%) are less common.
+The final dataset contains 162 labeled student turns drawn from 97 dialogue files (95 unique conversation IDs). Of these, 64 turns are human-annotated by our team (41 conversations) and 98 turns were labeled using GPT-4o-mini few-shot prompting on the remaining conversations. Table~\ref{tab:goal-dist} shows the combined goal distribution. Concept Explanation (59\%) dominates, reflecting that students most commonly seek explanations of concepts they have not fully understood. Answer Clarification (17\%) and Step-by-Step Guidance (12\%) are the next most frequent, while Debugging/Error Fixing (7\%) and Direct Answer Generation (4\%) are less common.
 
 \begin{table}[h]
 \centering
@@ -330,7 +330,21 @@ Direct Answer Generation &  7 &  4\% \\
 \label{tab:goal-dist}
 \end{table}
 
-For learning scenarios, Lecture Learning (46\%) is the most common context, followed by Not Clear (35\%), Assignment Help (14\%), and Project/Research Support (5\%). The affective label distribution across the 64 human-annotated turns shows that 55\% of follow-up messages are neutral, 25\% satisfied, and 20\% unsatisfied — indicating roughly one in five student follow-up messages signals remaining confusion or dissatisfaction after the LLM's response.
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{figures/dataset_distributions.png}
+\caption{Scenario and learning goal distributions across the 162 labeled turns.}
+\label{fig:dataset-dists}
+\end{figure}
+
+For learning scenarios, Lecture Learning (46\%) is the most common context, followed by Not Clear (35\%), Assignment Help (14\%), and Project/Research Support (5\%); Exam Preparation appears only once (0.6\%). Affective labels (e.g., satisfaction) are handled in a separate annotation pass and are not part of \texttt{processed.csv}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.95\linewidth]{figures/top_pedagogical_strategies_gpt.png}
+\caption{Top pedagogical strategies in GPT responses, detected via simple pattern matching over assistant text (exploratory; $n=128$ GPT turns).}
+\label{fig:top-strategies-gpt}
+\end{figure}
 
 \subsection{Prompt and Response Quality}
 
