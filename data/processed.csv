@@ -1837,7 +1837,7 @@ D24.json,24,1,gpt,Can you teach me how to know what's the size of a struct in a 
       with a char followed by an int, the compiler adds 3 bytes of padding after the char so the int is 
       aligned to a 4-byte boundary. To determine the exact size, you can use sizeof(struct_name). A 
       general method is: list each field in order, add padding when needed to align each field, and then 
-      round up the total size to a multiple of the largest alignment requirement in the struct.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+      round up the total size to a multiple of the largest alignment requirement in the struct.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,4,,,27,0.875
 D24.json,24,2,gpt,Can you give me more examples?,"Here are several examples showing how struct size works with padding and alignment. 
       Example 1: struct S1 { int a; int b; int c; }; → size is 12 bytes (no padding needed). Example 2: 
       struct S2 { char c; int x; }; → size is 8 bytes, not 5, because 3 bytes of padding are added before 
@@ -1848,7 +1848,7 @@ D24.json,24,2,gpt,Can you give me more examples?,"Here are several examples show
       alignment. Example 6: struct S6 { double d; int i; char c; }; → size is reduced to 16 bytes by placing 
       larger types first. Example 7: struct S7 { char c; int x; int *p; }; → size is 16 bytes with padding 
       before the int and natural alignment for the pointer. These examples show that ordering fields from 
-      largest to smallest can reduce padding and save memory.",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,,,,,,,
+      largest to smallest can reduce padding and save memory.",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,3,3,2,,,15,0.375
 D25.json,25,1,gpt,"Can you provide a very detailed explanation of the following topics: (1) Vector spaces and subspaces 
       (axiomatics), (2) Definition of span, linear (in)dependence, and basis, and the dimension of a finite-dimensional 
       vector space, (3) Linear maps between vector spaces, including image and kernel, and the relationships between rank, 
@@ -1872,7 +1872,7 @@ A linear map (or linear transformation) between
       of all vectors in V that map to the zero vector in W. The rank of a linear transformation (or matrix) is the dimension of its 
       image. A key theorem is the Rank-Nullity Theorem, which states that for a linear map T: V → W, dim(V) = dim(kernel) + dim(image). 
       This connects the dimension of the domain with the dimensions of the kernel and image. When a linear map is represented by a 
-      matrix, the rank of the matrix equals the dimension of the image of the associated transformation.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+      matrix, the rank of the matrix equals the dimension of the image of the associated transformation.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,4,5,3,,,22,0.6667
 D26.json,26,1,gpt,Can you explain to me what is fork in the context of C programming and give me some examples?,"In C programming (specifically on Unix-like systems such as Linux or macOS), fork() is a system 
       call used to create a new process.
 
@@ -1967,7 +1967,7 @@ Key ideas:
 Common uses include parallel processing, shells, and servers.
       
 
-fork() is declared in #include <unistd.h> and is not available on Windows without compatibility layers.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+fork() is declared in #include <unistd.h> and is not available on Windows without compatibility layers.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,3,4,3,,,19,0.5417
 D36_ungraded.json,D36,1,GPT,"Explain what this does: activations = {} # TODO: write hook factory def make_hook(name): def hook(module, input, output): activations[name] = output.detach() return hook # TODO: register on both conv layers model_v1.conv1.register_forward_hook(make_hook('GAT_Layer_1')) model_v1.conv2.register_forward_hook(make_hook('GAT_Layer_2'))","Think of this as a way to peek inside the model while it’s running.
 
 What this code does (simple idea)
@@ -2026,7 +2026,7 @@ Then you turn them into:
 One-sentence summary (for your report)
 Forward hooks capture intermediate layer outputs during the model’s forward pass, allowing us to store activations for visualization and interpret how the GAT processes node features.
 
-If you want, next I can help you interpret the heatmaps, which is actually the hardest (and most important) part.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+If you want, next I can help you interpret the heatmaps, which is actually the hardest (and most important) part.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,4,4,4,,,24,0.75
 D37_ungraded.json,D37,1,GPT,"What is the difference between these two formulas?
 Population standard deviation:
 
@@ -2067,7 +2067,7 @@ Main difference
 
 
 Why does sample SD divide by ?
-Because a sample is only an estimate of the population. Dividing by corrects for the fact that sample spread tends to underestimate true population spread.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+Because a sample is only an estimate of the population. Dividing by corrects for the fact that sample spread tends to underestimate true population spread.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,3,3,3,,,18,0.5
 D37_ungraded.json,D37,2,GPT,what is the symbol for predicted y and mean y,"The symbol for predicted is:
 
 Read it as “Y-hat.”
@@ -2094,7 +2094,7 @@ So:
 
 Quick memory:
 · hat = predicted 
-· bar = average",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+· bar = average",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,5,,,30,1.0
 D37_ungraded.json,D37,3,GPT,explain confidence interval a bit more,"A confidence interval gives a range of plausible values for the true population parameter.
 
 For regression, it usually means:
@@ -2138,7 +2138,7 @@ includes 0, so not significant.
 Simple intuition
 Confidence interval = estimate ± uncertainty.
 · Small SE → narrow interval → more precise estimate 
-· Large SE → wide interval → less precise estimate",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+· Large SE → wide interval → less precise estimate",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,3,4,3,,,19,0.5417
 D37_ungraded.json,D37,4,GPT,so confidence interval is the range of values thats likely to contain the true population parameter/ coefficent?,"Yes, exactly.
 A confidence interval is a range of values that is likely to contain the true population parameter, such as the true mean or true regression coefficient.
 For regression:
@@ -2151,7 +2151,7 @@ means:
 We are 95% confident that the true effect of schooling on log wages is between 0.099 and 0.117.
 Tiny wording nuance for exams:
 A 95% confidence interval means that if we repeated the sampling process many times, about 95% of the intervals constructed this way would contain the true parameter.
-But your understanding is right: it’s a plausible range for the true value.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+But your understanding is right: it’s a plausible range for the true value.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,4,5,4,,,25,0.7917
 D37_ungraded.json,D37,5,GPT,so what does a small p value reallly mean,"A small p-value means:
 If the null hypothesis were true, our observed result would be very unlikely.
 So it makes us doubt the null hypothesis.
@@ -2176,7 +2176,7 @@ It means:
 Simple intuition
 Small p-value = too surprising under the no-effect world.
 So we conclude:
-There is evidence of a real relationship/effect.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+There is evidence of a real relationship/effect.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,3,4,4,,,22,0.6667
 D38_ungraded.json,D38,1,GPT,"Find the area of the part of the plane
 
 that lies in the first octant.","First octant means:
@@ -2206,7 +2206,7 @@ Magnitude:
 
 Area:
 
-Final answer:",False,Step-by-Step Guidance,Step-by-Step Guidance,Assignment Help,Assignment Help,gpt,,,,,,,,,,
+Final answer:",False,Step-by-Step Guidance,Step-by-Step Guidance,Assignment Help,Assignment Help,gpt,,,,2,2,2,,,12,0.25
 D38_ungraded.json,D38,2,GPT,"so i was actually taught to use a formula, which is double integral the square root of (1+ dz/dx squared + dz/dy squared) dA, is that right?","Yes — that’s exactly right 👍
 
 🔑 The formula you learned
@@ -2247,7 +2247,7 @@ Step 5: final
 👉 So it becomes:
 
 
-So yes — your method is 100% correct, and actually the standard approach.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+So yes — your method is 100% correct, and actually the standard approach.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,3,4,3,,,19,0.5417
 D38_ungraded.json,D38,3,GPT,"um, can i use it to find any surfaces?","Short answer: yes, but only when the surface is written as .
 
 🔑 When your formula works
@@ -2276,7 +2276,7 @@ Use the general formula:
 So:
 · yes, it’s super useful 
 · but not universal 
-If you want, I can show you how your formula actually comes from the cross product (it makes everything click).",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,,,,,,,
+If you want, I can show you how your formula actually comes from the cross product (it makes everything click).",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,3,3,4,,,21,0.625
 D41_ungraded.json,D41,1,GPT,what is a set in java,"In Java, a Set is a collection that:
 
 ✅ 1. Cannot contain duplicate elements
@@ -2332,7 +2332,7 @@ set.add(""cat"");
 System.out.println(set);
 // prints [cat, dog] (order may vary)
 
-If you want, I can compare Set vs List or show when to use which in coding interviews.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+If you want, I can compare Set vs List or show when to use which in coding interviews.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,4,,,27,0.875
 D41_ungraded.json,D41,2,GPT,what is a keyset in hashtable then?,"A keySet() in a Java Hashtable (or HashMap) is simply:
 
 ✅ A Set view of all the keys stored in the map.
@@ -2389,7 +2389,7 @@ keySet() gives you:
 → No duplicates
 → Backed by the map (changes reflect both ways)
 
-Let me know if you want a similar explanation for values() or entrySet().",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+Let me know if you want a similar explanation for values() or entrySet().",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,4,,,27,0.875
 D41_ungraded.json,D41,3,GPT,"for dfs search in a graph, is the choice of which node to go next if all are not visited arbitrary?","Yes — the choice is arbitrary if several neighbors are unvisited.
 
 ✅ In DFS, if multiple adjacent nodes are unvisited,
@@ -2441,7 +2441,7 @@ Summary
 DFS allows freedom when picking among multiple unvisited neighbors.
 Any deterministic or arbitrary rule is fine.
 
-If you want, I can show code examples of DFS with different neighbor orders.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+If you want, I can show code examples of DFS with different neighbor orders.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,5,,,30,1.0
 D41_ungraded.json,D41,4,GPT,"ok i need help understanding how dfs is coded in this code:
 public void dfs(int start) {
     boolean[] visited = new boolean[numVertices];
@@ -2568,7 +2568,7 @@ Think of this:
 
 That's DFS.
 
-If you want, I can walk through a specific example with an adjacency matrix and show the exact order it visits.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+If you want, I can walk through a specific example with an adjacency matrix and show the exact order it visits.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,4,5,4,,,25,0.7917
 D42_ungraded.json,D42,1,GPT,"Here are some examples of the question:
 Example 1:
 
@@ -2663,7 +2663,7 @@ Finally add leading 1 →
 
 🎉 This is the most effective way — simple, fast, no tricks.
 
-If you want, I can also explain the math reasoning, or compare with alternative methods (string conversion, simulating a full adder, etc.).",False,Step-by-Step Guidance,Step-by-Step Guidance,Assignment Help,Assignment Help,gpt,,,,,,,,,,
+If you want, I can also explain the math reasoning, or compare with alternative methods (string conversion, simulating a full adder, etc.).",False,Step-by-Step Guidance,Step-by-Step Guidance,Assignment Help,Assignment Help,gpt,,,,5,5,5,,,30,1.0
 D42_ungraded.json,D42,2,GPT,"result should be [1,0]., not [10]","Yes — exactly!
 That's the whole point of this problem:
 You cannot treat the number as a single integer [10] because the output format requires a list of digits, not an integer.
@@ -2718,7 +2718,7 @@ class Solution:
         return [1] + digits
 
 If you want, I can also walk through more tricky cases like
-[0], [2,9], [9,0,9,9], [1,9,9] step-by-step.",False,Answer Clarification,Answer Clarification,Not Clear,Not Clear,gpt,,,,,,,,,,
+[0], [2,9], [9,0,9,9], [1,9,9] step-by-step.",False,Answer Clarification,Answer Clarification,Not Clear,Not Clear,gpt,,,,5,5,5,,,30,1.0
 D43_ungraded.json,D43,1,GPT,"Q3. Largest Rectangle in Histogram
 
 Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.
@@ -2841,7 +2841,7 @@ so we compute its max area.
 ➡ Elegant
 ➡ O(n) time
 
-If you'd like, I can also walk you through this visually with step-by-step stack states for your specific input!",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+If you'd like, I can also walk you through this visually with step-by-step stack states for your specific input!",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,5,,,30,1.0
 D43_ungraded.json,D43,2,GPT,"if heights = [6, 1, 1, 1, 1, 1, 1], the result will be 7, right?","Yes — the answer is 7, and here's the quick reasoning to confirm it:
 
 ✅ heights = [6, 1, 1, 1, 1, 1, 1]
@@ -2870,7 +2870,7 @@ The entire histogram has at least height 1, so the rectangle spanning all 7 bars
 
 ⭐ Final Answer: 7
 
-If you want, I can run this exact example through the stack algorithm step-by-step so you can see how the ""1×7"" rectangle is discovered.",False,Direct Answer Generation,Direct Answer Generation,Not Clear,Not Clear,gpt,,,,,,,,,,
+If you want, I can run this exact example through the stack algorithm step-by-step so you can see how the ""1×7"" rectangle is discovered.",False,Direct Answer Generation,Direct Answer Generation,Not Clear,Not Clear,gpt,,,,5,5,5,,,30,1.0
 D43_ungraded.json,D43,3,GPT,sure,"Here's the full step-by-step simulation of the algorithm for:
 
 heights = [6, 1, 1, 1, 1, 1, 1]
@@ -2996,7 +2996,7 @@ so the full width = 7 is valid.""
 
 This gives the rectangle of area 7.
 
-If you want, I can also draw a visual diagram showing how each rectangle boundary is computed.",False,Step-by-Step Guidance,Step-by-Step Guidance,Not Clear,Not Clear,gpt,,,,,,,,,,
+If you want, I can also draw a visual diagram showing how each rectangle boundary is computed.",False,Step-by-Step Guidance,Step-by-Step Guidance,Not Clear,Not Clear,gpt,,,,3,3,2,,,15,0.375
 D43_ungraded.json,D43,4,GPT,"so the initialization of stack = [-1] is very important, right?","Yes — the initialization stack = [-1] is extremely important.
 It is not just a trick; it is what makes the entire algorithm clean, correct, and bug-free.
 
@@ -3067,7 +3067,7 @@ Perfect for width calculations.
 
 So yes — that single line is essential for correctness and simplicity.
 
-If you want, I can also show you how the algorithm fails if you initialize stack=[] instead.",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,,,,,,,
+If you want, I can also show you how the algorithm fails if you initialize stack=[] instead.",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,5,5,5,,,30,1.0
 D44_ungraded.json,D44,1,GPT,"You are given an m x n integer array grid. There is a robot initially located at the top-left corner (i.e., grid[0][0]). The robot tries to move to the bottom-right corner (i.e., grid[m - 1][n - 1]). The robot can only move either down or right at any point in time. An obstacle and space are marked as 1 or 0 respectively in grid. A path that the robot takes cannot include any square that is an obstacle. Return the number of possible unique paths that the robot can take to reach the bottom-right corner. The testcases are generated so that the answer will be less than or equal to 2 * 10^9.
 
 My answer:
@@ -3147,7 +3147,7 @@ class Solution:
                     dp[j] += dp[j-1] if j > 0 else 0
         return dp[-1]
 
-Pick either; both pass all cases. The 1D version is shorter and memory-friendly.",False,Debugging / Error Fixing,Debugging / Error Fixing,Project/Research Support,Project/Research Support,gpt,,,,,,,,,,
+Pick either; both pass all cases. The 1D version is shorter and memory-friendly.",False,Debugging / Error Fixing,Debugging / Error Fixing,Project/Research Support,Project/Research Support,gpt,,,,5,4,5,,,29,0.9583
 D44_ungraded.json,D44,2,GPT,I don't understand this: dp[m-1][n-1] = 1 # one way to stay at the goal if not blocked,"Excellent that you're pausing to understand this — it's an important base case in the DP logic.
 
 🧩 What dp[m-1][n-1] means
@@ -3186,7 +3186,7 @@ Without this, every earlier cell would depend on undefined values and the whole 
 
 ✅ In short:
 dp[m-1][n-1] = 1 means
-""there's exactly one way to finish once you've already reached the goal.""",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,,,,,,,
+""there's exactly one way to finish once you've already reached the goal.""",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,5,5,5,,,30,1.0
 D45_ungraded.json,D45,1,GPT,"Given two strings word1 and word2, return the minimum number of operations required to convert word1 to word2. You have the following three operations permitted on a word:
 - Insert a character
 - Delete a character
@@ -3272,7 +3272,7 @@ Total = 3 steps.
 - Each step decides: match, replace, delete, or insert.
 - The final cell gives the minimum edits.
 
-Do you want me to also draw a small DP table diagram for ""horse"" → ""ros"" so you can see how the numbers fill up?",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+Do you want me to also draw a small DP table diagram for ""horse"" → ""ros"" so you can see how the numbers fill up?",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,5,,,30,1.0
 D45_ungraded.json,D45,2,GPT,Why do we look at word1[i-1] and word2[j-1] but not word1[i] and word2[j]?,"Great observation 👏
 
 This is a very common point of confusion in dynamic programming on strings.
@@ -3310,7 +3310,7 @@ Think of dp[i][j] like a grid where i is the length of part of word1.
 ✅ So the takeaway:
 We use i-1 and j-1 because dp[i][j] represents substrings of length i and j, and the last character of such a substring is at index i-1 / j-1 in 0-based indexing.
 
-Would you like me to actually draw the DP grid for ""horse"" → ""ros"" so you can see how i-1 and j-1 line up with the characters?",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,,,,,,,
+Would you like me to actually draw the DP grid for ""horse"" → ""ros"" so you can see how i-1 and j-1 line up with the characters?",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,5,5,5,,,30,1.0
 D45_ungraded.json,D45,3,GPT,why is this replace: Replace: cost = dp[i-1][j-1] + 1,"Excellent question! Let's zoom in on why the replace case is written as
 
 cost = dp[i-1][j-1] + 1
@@ -3352,7 +3352,7 @@ So formula: dp[i][j] = dp[i-1][j-1] + 1.
 - Insert looks back at dp[i][j-1] (insert one char into word1).
 - Replace looks back at dp[i-1][j-1] (fix the last char of both at once).
 
-Would you like me to write a side-by-side example showing all three cases (insert, delete, replace) on the same small pair of words, so you can see why the formulas point to those exact cells?",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,,,,,,,
+Would you like me to write a side-by-side example showing all three cases (insert, delete, replace) on the same small pair of words, so you can see why the formulas point to those exact cells?",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,5,5,5,,,30,1.0
 D45_ungraded.json,D45,4,GPT,Give me examples of insertion and deletion,"Perfect 👍 Let's go through examples so you see exactly why
 
 - Insert → dp[i][j-1] + 1
@@ -3392,7 +3392,7 @@ We want dp[4][3] (turn ""abcd"" → ""abc"").
 - Delete → look up (i-1), because you're removing a letter from word1.
 - Replace → look diagonal (i-1, j-1), because you're fixing both words' last letters at once.
 
-Want me to draw a small DP table for ""ab"" → ""abc"" so you can see how the insert case fills in the grid?",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+Want me to draw a small DP table for ""ab"" → ""abc"" so you can see how the insert case fills in the grid?",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,4,5,4,,,25,0.7917
 D46_ungraded.json,D46,1,GPT,"when you are performing add, you overwrite the value in the register, but if the memory does not change, why do you need to reaccess it?","YES — this is the exact right question.
 
 You need to reaccess memory because the register lost the value.
@@ -3456,7 +3456,7 @@ Think of it like this:
 - Memory/stack = storage cabinet
 
 If you throw away the paper on your desk (add overwrites register), the cabinet still has a saved copy.
-But to use it again, you must go retrieve it (lw).",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+But to use it again, you must go retrieve it (lw).",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,3,4,3,,,19,0.5417
 D47_ungraded.json,D47,1,GPT,"did chip 1 use the line lw $s0, 0($s0) that line, if it use this line, then why not have an adder because there's a constant 0","You're thinking about it correctly. The reason we do not draw the adder is because adding 0 changes nothing.
 
 The actual MIPS instruction is:
@@ -3490,7 +3490,7 @@ lw $s1, 8($s0)
 
 then you would definitely need an adder before Chip 1 to compute:
 
-s0 + 8",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+s0 + 8",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,4,4,4,,,24,0.75
 D48_ungraded.json,D48,1,GPT,does homomorphism means the operation will preserve?,"Yes—that's exactly the core idea.
 
 🔑 Definition (in plain words)
@@ -3543,7 +3543,7 @@ If f is a homomorphism:
 - inverses are preserved:
   f(a^-1) = f(a)^-1
 
-If you want, I can connect this to your earlier questions (like why g^0 = e, or how orders behave under homomorphisms)—those are all consequences of this one idea.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+If you want, I can connect this to your earlier questions (like why g^0 = e, or how orders behave under homomorphisms)—those are all consequences of this one idea.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,5,,,30,1.0
 D49_ungraded.json,D49,1,GPT,Relationship of pascal triangle and binomial coefficient,"The connection between Pascal's Triangle and binomial coefficients is direct and fundamental—they are essentially two ways of expressing the same idea.
 
 🔺 Pascal's Triangle (visual structure)
@@ -3611,7 +3611,7 @@ Those coefficients (1, 4, 6, 4, 1) come directly from Pascal's Triangle.
 
 If you want, I can show you:
 - how to derive combinations from scratch using the triangle
-- or how this shows up in probability (like coin tosses, binomial distribution)",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+- or how this shows up in probability (like coin tosses, binomial distribution)",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,4,,,27,0.875
 D50_ungraded.json,D50,1,GPT,"If 'add' changes the value in the register, but the value in memory stays the same, why would we ever need to access memory again?","YES — this is the exact right question.
 
 You need to reaccess memory because the register lost the value.
@@ -3675,7 +3675,7 @@ Think of it like this:
 - Memory/stack = storage cabinet
 
 If you throw away the paper on your desk (add overwrites register), the cabinet still has a saved copy.
-But to use it again, you must go retrieve it (lw).",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+But to use it again, you must go retrieve it (lw).",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,4,5,4,,,25,0.7917
 D51_ungraded.json,D51,1,GPT,"# 11. Random Forest — unified call+put model
 
 feats = ['S','K','T','r','q','sigma','option_type_call']
@@ -3843,7 +3843,7 @@ In your case, the result probably means:
 
 the random forest is excellent at approximating the same-day option pricing surface, but that is different from saying it has strong predictive power in a practical sense.
 
-If you want, I can also explain why including implied volatility makes this feel almost circular.",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,,,,,,,
+If you want, I can also explain why including implied volatility makes this feel almost circular.",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,5,5,5,,,30,1.0
 D51_ungraded.json,D51,2,GPT,what can i do then,"Do something that tests generalization, not just same-day curve fitting.
 
 Best options:
@@ -3998,7 +3998,7 @@ A simple sentence you could use in a write-up:
 
 Since same-day option prices are largely determined by contemporaneous contract characteristics, I extend the analysis to an out-of-time setting by training on earlier dates and testing on later dates, and I compare the random forest against a Black-Scholes benchmark.
 
-If you want, I can help you redesign your code for a date-based split or for a Black-Scholes residual prediction setup.",False,Step-by-Step Guidance,Step-by-Step Guidance,Project/Research Support,Project/Research Support,gpt,,,,,,,,,,
+If you want, I can help you redesign your code for a date-based split or for a Black-Scholes residual prediction setup.",False,Step-by-Step Guidance,Step-by-Step Guidance,Project/Research Support,Project/Research Support,gpt,,,,3,4,4,,,22,0.6667
 D52_ungraded.json,D52,1,GPT,Suppose that the stock follows geometric Brownian motion d Xt = 0.1 Xt dt + 0.3 Xt d Wt. Write the probability density function for the distribution of the stock prices in 2 years if the current stock price is 40.,"Under geometric Brownian motion,
 
 dXt = μ*Xt*dt + σ*Xt*dWt
@@ -4038,7 +4038,7 @@ Equivalently,
 
 f_{X2}(x) = 1 / (x * sqrt(0.36π)) * exp(-(ln(x/40) - 0.11)² / 0.36),  x > 0.
 
-The distribution is lognormal.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+The distribution is lognormal.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,4,5,4,,,25,0.7917
 D52_ungraded.json,D52,2,GPT,"If you delta hedge short put position when market oscillates do you ""buy high sell low"" stock or do you ""sell high buy low"" stock?","If you are short a put and you delta hedge dynamically, then during market oscillations you typically:
 - buy stock when the market falls
 - sell stock when the market rises
@@ -4116,7 +4116,7 @@ The intuition:
 - long gamma hedging → buy low, sell high
 - short gamma hedging → sell low, buy high
 
-A short put is typically short gamma, so the hedge loses money in oscillating markets.",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,,,,,,,
+A short put is typically short gamma, so the hedge loses money in oscillating markets.",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,4,5,4,,,25,0.7917
 D52_ungraded.json,D52,3,GPT,so which one is it?,"For a delta-hedged short put, you:
 
 sell low and buy high
@@ -4142,7 +4142,7 @@ That is the hallmark of being:
 
 short gamma
 
-A short put has negative gamma, so dynamic delta hedging mechanically produces this unfavorable trading pattern.",False,Answer Clarification,Answer Clarification,Not Clear,Not Clear,gpt,,,,,,,,,,
+A short put has negative gamma, so dynamic delta hedging mechanically produces this unfavorable trading pattern.",False,Answer Clarification,Answer Clarification,Not Clear,Not Clear,gpt,,,,4,5,4,,,25,0.7917
 D52_ungraded.json,D52,4,GPT,can you explain the mechanics separately,"Sure. Let's separate the mechanics carefully.
 
 Suppose you are:
@@ -4197,7 +4197,7 @@ You are no longer neutral.
 
 To get back to zero, you need:
 -0.2
-more stock delta.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+more stock delta.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,4,4,3,,,21,0.625
 D52_ungraded.json,D52,5,GPT,How do you get negative stock delta?,"Short more stock
 
 You short another 0.2 shares.
@@ -4254,7 +4254,7 @@ By contrast, a long option (long gamma) does the opposite:
 
 which is:
 
-buy low, sell high.",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,,,,,,,
+buy low, sell high.",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,3,3,2,,,15,0.375
 D52_ungraded.json,D52,6,GPT,why does delta become more negative when stock price falls −0.4→−0.6,"Because a put becomes more valuable when the stock price falls.
 
 Put delta measures:
@@ -4288,7 +4288,7 @@ A deep in-the-money put is almost like having the right to sell stock at a fixed
 
 So put delta moves toward:
 -1
-as the stock price falls.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+as the stock price falls.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,5,,,30,1.0
 D52_ungraded.json,D52,7,GPT,can you interpret -.8 in terms of when stock falls by one,"A put delta of
 
 -0.8
@@ -4317,7 +4317,7 @@ short 0.8 shares of stock
 
 because short stock also gains when the stock falls.
 
-That is why deep in-the-money puts have deltas close to -1.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+That is why deep in-the-money puts have deltas close to -1.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,5,,,30,1.0
 D52_ungraded.json,D52,8,GPT,derivative goes both ways?,"Yes — approximately, for small moves.
 
 Delta is a derivative:
@@ -4346,7 +4346,7 @@ If stock falls by $1:
 ΔP ≈ -0.8 * (-1) = +0.8
 Put price rises by about $0.80.
 
-So yes, you can use the derivative ""both ways,"" but only as a local approximation. If the stock moves a lot, delta itself changes, so the estimate becomes less accurate.",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,,,,,,,
+So yes, you can use the derivative ""both ways,"" but only as a local approximation. If the stock moves a lot, delta itself changes, so the estimate becomes less accurate.",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,5,5,5,,,30,1.0
 D53_ungraded.json,D53,1,GPT,"One can see that before expiration there is a convexity in the graph. The convexity is described by the second derivative of the call price with respect to stock price X that is also called Gamma and denoted by a greek letter Γ. This second derivative is positive for call owner, (and put owner too). explain this","This is saying: before expiration, the option price curve is not a straight line. It bends upward. That upward bend is called convexity, and in options it is measured by gamma.
 
 Delta is the first derivative:
@@ -4386,7 +4386,7 @@ Positive gamma means your delta changes in a favorable way:
 - If stock falls, a long put becomes more exposed to the downside.
 - If the market oscillates, delta hedging a long option tends to ""buy low, sell high.""
 
-So the sentence means: before expiration, both call and put owners benefit from convexity because the option price curve bends upward instead of moving linearly with the stock.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+So the sentence means: before expiration, both call and put owners benefit from convexity because the option price curve bends upward instead of moving linearly with the stock.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,4,5,4,,,25,0.7917
 D54_ungraded.json,D54,1,GPT,"One can see that before expiration there is a convexity in the graph. The convexity is described by the second derivative of the call price with respect to stock price X that is also called Gamma and denoted by a greek letter Γ. This second derivative is positive for call owner, (and put owner too).
 
 The holder of the call makes more money when stock price goes 1$ up then loses less money when stock price goes 1$ down.
@@ -4429,7 +4429,7 @@ positive gamma benefit  vs.  time decay cost
 
 In simple words:
 
-Owning an option is like paying rent for the chance to benefit from big moves. If the stock moves a lot, positive gamma helps you. If the stock does not move, time decay hurts you.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+Owning an option is like paying rent for the chance to benefit from big moves. If the stock moves a lot, positive gamma helps you. If the stock does not move, time decay hurts you.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,5,,,30,1.0
 D54_ungraded.json,D54,2,GPT,what's the point of delta hedging,"The point of delta hedging is to:
 
 remove the small directional risk from the option position
@@ -4500,7 +4500,7 @@ So:
 - theta is the cost of holding convexity
 - volatility determines whether the convexity was worth paying for
 
-That is the core mechanics behind option market making and volatility trading.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+That is the core mechanics behind option market making and volatility trading.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,4,5,4,,,25,0.7917
 D55_ungraded.json,D55,1,GPT,can you give two numerical examples and show what this means?,"totally—here are two quick, concrete plug-in examples that show how the Bernoulli variance formula
 
 Var(C) = p(1-p)
@@ -4549,7 +4549,7 @@ What this ""means""
 
 - For Bernoulli, the mean is p and the variance is p(1-p).
 - The variance is largest at p = 0.5: 0.5(1-0.5) = 0.25.
-- It shrinks toward 0 as p → 0 or p → 1 because the outcome becomes more predictable (almost always 0 or almost always 1).",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+- It shrinks toward 0 as p → 0 or p → 1 because the outcome becomes more predictable (almost always 0 or almost always 1).",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,4,5,4,,,25,0.7917
 D55_ungraded.json,D55,2,GPT,can you show an example with general discrete variance,"Sure! Here's a concrete discrete (non-Bernoulli) example.
 
 Let a random variable Y take values -1, 0, 2 with probabilities
@@ -4573,7 +4573,7 @@ Quick check with E[Y^2] - μ^2:
 E[Y^2] = (-1)^2 * (0.2) + 0^2 * (0.5) + 2^2 * (0.3) = 0.2 + 0 + 1.2 = 1.4,
 Var(Y) = 1.4 - (0.4)^2 = 1.4 - 0.16 = 1.24.
 
-This shows how the general discrete-variance formula works and matches the E[Y^2] - E[Y]^2 shortcut.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+This shows how the general discrete-variance formula works and matches the E[Y^2] - E[Y]^2 shortcut.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,4,5,3,,,22,0.6667
 D56_ungraded.json,D56,1,GPT,"For a discrete random variable:
 
 var(Y) = σ_Y^2 = E[(Y - μ_Y)^2] = sum_{i=1}^{k} (y_i - μ_Y)^2 * p_i
@@ -4630,7 +4630,7 @@ What this ""means""
 
 - For Bernoulli, the mean is p and the variance is p(1-p).
 - The variance is largest at p = 0.5: 0.5(1-0.5) = 0.25.
-- It shrinks toward 0 as p → 0 or p → 1 because the outcome becomes more predictable (almost always 0 or almost always 1).",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+- It shrinks toward 0 as p → 0 or p → 1 because the outcome becomes more predictable (almost always 0 or almost always 1).",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,4,4,4,,,24,0.75
 D56_ungraded.json,D56,2,GPT,can you show an example with general discrete variance,"Sure! Here's a concrete discrete (non-Bernoulli) example.
 
 Let a random variable Y take values -1, 0, 2 with probabilities
@@ -4654,7 +4654,7 @@ Quick check with E[Y^2] - μ^2:
 E[Y^2] = (-1)^2 * (0.2) + 0^2 * (0.5) + 2^2 * (0.3) = 0.2 + 0 + 1.2 = 1.4,
 Var(Y) = 1.4 - (0.4)^2 = 1.4 - 0.16 = 1.24.
 
-This shows how the general discrete-variance formula works and matches the E[Y^2] - E[Y]^2 shortcut.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+This shows how the general discrete-variance formula works and matches the E[Y^2] - E[Y]^2 shortcut.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,4,5,3,,,22,0.6667
 D57_ungraded.json,D57,1,GPT,covariance of two random variables,"Here's the essentials on covariance between two random variables X and Y.
 
 Definition
@@ -4701,7 +4701,7 @@ Sample covariance (from data (x_i, y_i), i=1..n)
 
 s_{XY} = 1/(n-1) * sum_{i=1}^{n} (x_i - x_bar)(y_i - y_bar).
 
-That's the full toolkit you'll use in probability and stats for covariance.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+That's the full toolkit you'll use in probability and stats for covariance.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,4,,,27,0.875
 D57_ungraded.json,D57,2,GPT,does it mean like if x tends to populate more below the average and same for y then the covariance is positive and they move together?,"Exactly—that's the right intuition.
 
 Covariance is the average of the product (X - μ_X)(Y - μ_Y).
@@ -4713,7 +4713,7 @@ Covariance is the average of the product (X - μ_X)(Y - μ_Y).
 Another way to picture it: center the scatterplot at (μ_X, μ_Y).
 Points in the NE and SW quadrants (same side of both means) push covariance up; points in NW and SE push it down. The farther from the center, the stronger the push (because of the magnitudes).
 
-Caveat: positive/negative covariance measures linear co-movement. Covariance = 0 doesn't guarantee independence (e.g., a perfect U-shaped relation can have zero covariance).",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+Caveat: positive/negative covariance measures linear co-movement. Covariance = 0 doesn't guarantee independence (e.g., a perfect U-shaped relation can have zero covariance).",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,4,5,4,,,25,0.7917
 D58_ungraded.json,D58,1,GPT,"E[X_bar]
 = (1/n) * sum_{i=1}^{n} E(X_i)
 = (1/n) * sum_{i=1}^{n} μ_X
@@ -4744,12 +4744,12 @@ So E[X_bar] = μ_X.
 Notes:
 - We used linearity of expectation and ""identically distributed.""
 - Independence is NOT required for this equality (it matters for variance, not the mean).
-- Hence, X_bar is an unbiased estimator of μ_X.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+- Hence, X_bar is an unbiased estimator of μ_X.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,5,,,30,1.0
 D58_ungraded.json,D58,2,GPT,is μ_X the population mean?,"Yes. In that slide, μ_X denotes the population mean—i.e., the true expected value of each X_i:
 
 μ_X = E[X_i]  for any i.
 
-By contrast, X_bar = (1/n) * sum_{i=1}^{n} X_i is the sample mean computed from your data. The result shown is E[X_bar] = μ_X, meaning the sample mean is an unbiased estimator of the population mean.",False,Answer Clarification,Answer Clarification,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+By contrast, X_bar = (1/n) * sum_{i=1}^{n} X_i is the sample mean computed from your data. The result shown is E[X_bar] = μ_X, meaning the sample mean is an unbiased estimator of the population mean.",False,Answer Clarification,Answer Clarification,Lecture Learning,Lecture Learning,gpt,,,,5,5,4,,,27,0.875
 D58_ungraded.json,D58,3,GPT,i just don't understand because the μ_X was first referred to the sample average and after elimination we get μ_X but now it refers to population average,"Totally fair confusion—this is a notation issue.
 
 - μ_X always means: the population mean of the variable X (i.e., μ_X = E[X_i] for any draw X_i).
@@ -4767,7 +4767,7 @@ Concrete picture:
 - Each time you take a sample and compute x_bar, you might get 9.7, 10.4, 8.9, … (these vary).
 - But across repeated sampling, the average of those x_bar's is E[X_bar] = 10 = μ_X.
 
-That's why we say the sample mean is unbiased for the population mean.",False,Answer Clarification,Answer Clarification,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+That's why we say the sample mean is unbiased for the population mean.",False,Answer Clarification,Answer Clarification,Lecture Learning,Lecture Learning,gpt,,,,5,5,5,,,30,1.0
 D59_ungraded.json,D59,1,GPT,"Variance of X_bar:
 
 Var(X_bar) = Var((1/n) * sum_{i=1}^{n} X_i)
@@ -4804,7 +4804,7 @@ Positive correlation (ρ > 0) means averaging reduces variance less.
 
 Var(X_bar) = (σ^2 / n) * ((N - n) / (N - 1)).
 
-The key idea: averaging cuts variance by n only when the draws are independent; otherwise the covariance term modifies how much averaging helps.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+The key idea: averaging cuts variance by n only when the draws are independent; otherwise the covariance term modifies how much averaging helps.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,5,,,30,1.0
 D59_ungraded.json,D59,2,GPT,can you break down each step more,"Absolutely—let's unpack every step in the slide that proves Var(X_bar) = σ_X^2 / n for i.i.d. X_1, …, X_n.
 
 Setup
@@ -4871,7 +4871,7 @@ Var(X_bar) = (σ_X^2 / n) * [1 + (n-1)ρ].
 
 Var(X_bar) = (σ_X^2 / n) * ((N - n) / (N - 1))  (finite-population correction).
 
-That's every piece of the slide spelled out.",False,Step-by-Step Guidance,Step-by-Step Guidance,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+That's every piece of the slide spelled out.",False,Step-by-Step Guidance,Step-by-Step Guidance,Lecture Learning,Lecture Learning,gpt,,,,5,5,5,,,30,1.0
 D59_ungraded.json,D59,3,GPT,if you could 50 basis point over a 30 year horizon how are 18% more assets,"I think what you mean is: ""If you can earn 50 basis points more per year over a 30-year horizon, how do you end up with ~18% more assets?"" (i.e., what's the math behind that statement?)
 
 Let me break it down.
@@ -4952,7 +4952,7 @@ If we use continuous compounding for both rates:
 - The exact number is sensitive to your base return r and whether compounding is discrete or continuous.
 - With reasonable real-world returns (say 3–6%), the 30-year cumulative effect of +50 bps/year lies roughly in the 15–20% extra range.
 
-If you like, I can compute the extra factor precisely for different realistic r (say 4%, 6%, etc.) and show a table. Do you want me to do that?",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,,,,,,,
+If you like, I can compute the extra factor precisely for different realistic r (say 4%, 6%, etc.) and show a table. Do you want me to do that?",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,5,5,5,,,30,1.0
 D60_ungraded.json,D60,1,GPT,"1.Matlab option model. Download from courseworks matlab option model files BlackScholesStocks.m and BlackScholesGraph.m and put them in the same directory.
 BlackScholesStocks.m contains the function that calculates the Black Scholes price for options on nondividend paying stocks.
 BlackScholesGraph.m is a script that makes a graph of option price as a function of stock price.
@@ -5055,7 +5055,7 @@ price = S.*exp(-q*T).*normcdf(d1) - K*exp(-r*T).*normcdf(d2);
 and then in the graph script:
 CallPrice(i) = BlackScholesStocks(S(i),K,r,q,sigma,T);
 
-If you paste your original two MATLAB files, I’ll rewrite them in exactly the same style as your class version.",False,Step-by-Step Guidance,Step-by-Step Guidance,Project/Research Support,Project/Research Support,gpt,,,,,,,,,,
+If you paste your original two MATLAB files, I’ll rewrite them in exactly the same style as your class version.",False,Step-by-Step Guidance,Step-by-Step Guidance,Project/Research Support,Project/Research Support,gpt,,,,4,5,4,,,25,0.7917
 D68.json,D68,1,GPT,can you teach me about hashmap in python,"Sure! A HashMap in Python is typically implemented using a dictionary (`dict`). A HashMap is a data structure that allows fast lookups, insertions, and deletions using a key-value pair mechanism. Python’s dictionary uses a hash table under the hood, making operations efficient on average.
 
 1. Basic Operations of HashMap in Python
@@ -5111,7 +5111,7 @@ class MyHashMap:
     def __init__(self, size=1000):
         self.size = size
         self.map = [[] for _ in range(size)]
-```",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+```",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,4,,,27,0.875
 D68.json,D68,2,GPT,What does carry = columnSum // 10 do in python,"The expression:
 
 ```python
@@ -5127,7 +5127,7 @@ carry = columnSum // 10  # 1
 digit = columnSum % 10   # 5
 ```
 
-This is commonly used in addition algorithms where digits are added column by column and extra values are carried to the next column.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+This is commonly used in addition algorithms where digits are added column by column and extra values are carried to the next column.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,5,,,30,1.0
 D69.json,D69,1,GPT,how to make a T flipflop from one d flipflop and some combinatorial logic,"A T flip-flop toggles its output when the T input is high and holds its state when T is low. You can achieve this behavior using a D flip-flop by creating the proper feedback logic.
 
 1. T flip-flop behavior:
@@ -5148,7 +5148,7 @@ Q feeds back into XOR
 - If T = 0 → D = Q → holds state
 - If T = 1 → D = ¬Q → toggles state
 
-So, a D flip-flop + one XOR gate implements a T flip-flop.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+So, a D flip-flop + one XOR gate implements a T flip-flop.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,5,,,30,1.0
 D69.json,D69,2,GPT,can you give me a better circuit diagram,"Here is a clearer circuit diagram for a T flip-flop built from a D flip-flop and an XOR gate:
 
 T ----+
@@ -5169,8 +5169,8 @@ Behavior:
 - T = 0 → D = Q → hold state
 - T = 1 → D = ¬Q → toggle state on clock edge
 
-This is the standard minimal implementation.",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,,,,,,,
-D70.json,D70,1,GPT,"Hi I’m working on a college-level algorithms assignment where we have to implement breadth-first search in Python using adjacency lists. My BFS function technically runs, but it skips some nodes and sometimes prints duplicate nodes. I’ve been staring at it for hours and I can’t figure out what’s wrong.",I can help with that. Please send the BFS function along with an example graph input and the output you’re currently getting versus the expected output.,False,Debugging / Error Fixing,Debugging / Error Fixing,Assignment Help,Assignment Help,gpt,,,,,,,,,,
+This is the standard minimal implementation.",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,5,5,5,,,30,1.0
+D70.json,D70,1,GPT,"Hi I’m working on a college-level algorithms assignment where we have to implement breadth-first search in Python using adjacency lists. My BFS function technically runs, but it skips some nodes and sometimes prints duplicate nodes. I’ve been staring at it for hours and I can’t figure out what’s wrong.",I can help with that. Please send the BFS function along with an example graph input and the output you’re currently getting versus the expected output.,False,Debugging / Error Fixing,Debugging / Error Fixing,Assignment Help,Assignment Help,gpt,,,,5,5,3,,,24,0.75
 D70.json,D70,2,GPT,"Here’s the function:
 
 ```python
@@ -5243,7 +5243,7 @@ def bfs(graph, start):
                 visited.add(neighbor)
 ```
 
-This ensures each node is only visited once.",False,Debugging / Error Fixing,Debugging / Error Fixing,Project/Research Support,Project/Research Support,gpt,,,,,,,,,,
+This ensures each node is only visited once.",False,Debugging / Error Fixing,Debugging / Error Fixing,Project/Research Support,Project/Research Support,gpt,,,,4,4,4,,,24,0.75
 D71.json,D71,1,GPT,I want to build the game tic tac toe using UIKit in Xcode. I've dragged 9 buttons onto the Main from the library and a reset button. What are my next steps. please give me clear instructions and detailed guidance. Also give me all the code needed to make the game run.,"Below is a step-by-step guide and a complete example in Swift that shows how to implement a simple Tic-Tac-Toe game in a single ViewController using UIKit.
 
 1. Set Up Storyboard:
@@ -5332,7 +5332,7 @@ class ViewController: UIViewController {
 
         statusLabel.text = ""X's turn""
     }
-}",False,Step-by-Step Guidance,Step-by-Step Guidance,Project/Research Support,Project/Research Support,gpt,,,,,,,,,,
+}",False,Step-by-Step Guidance,Step-by-Step Guidance,Project/Research Support,Project/Research Support,gpt,,,,4,4,3,,,21,0.625
 D71.json,D71,2,GPT,"In this step (Create an Outlet Collection (or separate outlets) for the 9 board buttons:) I can't drag the other 8 buttons to the same outlet collection, what should I do?","When using an IBOutlet collection in Xcode, you must connect all buttons to the same collection properly.
 
 Method 1 (Recommended): Connections Inspector
@@ -5349,7 +5349,7 @@ Method 2: Control-drag each button
 If it doesn't work:
 - Make sure tileButtons is declared as @IBOutlet var tileButtons: [UIButton]!
 - Ensure first connection was an Outlet Collection (not single outlet)
-- Check Connections Inspector to verify connections exist",False,Step-by-Step Guidance,Step-by-Step Guidance,Project/Research Support,Project/Research Support,gpt,,,,,,,,,,
+- Check Connections Inspector to verify connections exist",False,Step-by-Step Guidance,Step-by-Step Guidance,Project/Research Support,Project/Research Support,gpt,,,,4,5,4,,,25,0.7917
 D72.json,D72,1,GPT,what does (g∘f)^-1 do,"The notation \((g \circ f)^{-1}\) refers to the inverse of the composition of two functions \( g \) and \( f \). To understand what it does, let's break it down:
 
 ### Given:
@@ -5414,7 +5414,7 @@ Thus, the inverse function involves applying \( g^{-1} \) (square root) first, t
 - If \( g \) and \( f \) are bijective, then \( (g \circ f)^{-1} = f^{-1} \circ g^{-1} \).
 - To compute it, apply \( g^{-1} \) first, then \( f^{-1} \).
 
-Let me know if you want a more specific example or further clarification!",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+Let me know if you want a more specific example or further clarification!",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,5,,,30,1.0
 D73.json,D73,1,GPT,"base) Lexuss-MacBook-Pro:snatched chenlingzhi$ npm start
 
 > snatched@1.0.0 start
@@ -5443,7 +5443,7 @@ How to fix:
 2. If it is in another folder (like `src/`), update package.json start script.
 3. Make sure filename matches exactly (`server.js` vs `Server.js`).
 4. Ensure package.json start script matches the actual entry file.
-5. If needed, run `npm install` for dependencies.",False,Debugging / Error Fixing,Debugging / Error Fixing,Project/Research Support,Project/Research Support,gpt,,,,,,,,,,
+5. If needed, run `npm install` for dependencies.",False,Debugging / Error Fixing,Debugging / Error Fixing,Project/Research Support,Project/Research Support,gpt,,,,5,5,5,,,30,1.0
 D74.json,D74,1,GPT,"postman: Could not send request
 Error: connect ECONNREFUSED 127.0.0.1:8080","The error ""Could not send request | Error: connect ECONNREFUSED 127.0.0.1:8080"" generally means that Postman attempted to open a TCP connection to 127.0.0.1 on port 8080, but there was no service listening on that port (or the connection was refused by the OS/firewall). Below are common reasons and troubleshooting steps you can follow:
 
@@ -5503,7 +5503,7 @@ Error: connect ECONNREFUSED 127.0.0.1:8080","The error ""Could not send request 
 
 ## Summary
 
-The ECONNREFUSED error means Postman cannot connect to a service at 127.0.0.1:8080. Most likely causes are: server not running, wrong port, firewall interference, or proxy issues. Fixing the mismatch between your running server and Postman request will resolve the issue.",False,Debugging / Error Fixing,Debugging / Error Fixing,Not Clear,Not Clear,gpt,,,,,,,,,,
+The ECONNREFUSED error means Postman cannot connect to a service at 127.0.0.1:8080. Most likely causes are: server not running, wrong port, firewall interference, or proxy issues. Fixing the mismatch between your running server and Postman request will resolve the issue.",False,Debugging / Error Fixing,Debugging / Error Fixing,Not Clear,Not Clear,gpt,,,,5,5,4,,,27,0.875
 D74.json,D74,2,GPT,what is the stack like to create an ios app,"When building an iOS app, you’ll typically work with a combination of languages, frameworks, tools, and services. Here’s an overview of the common stack used to create a modern iOS application:
 
 ---
@@ -5622,7 +5622,7 @@ A very common modern iOS stack looks like this:
 
 ## Summary
 
-The iOS stack is centered around Swift + Xcode + Apple SDKs, with optional backend services and modern tooling layered around it. The exact stack depends on whether you're building a simple standalone app, a startup product, or a large-scale production system.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+The iOS stack is centered around Swift + Xcode + Apple SDKs, with optional backend services and modern tooling layered around it. The exact stack depends on whether you're building a simple standalone app, a startup product, or a large-scale production system.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,4,,,27,0.875
 D75.json,D75,1,GPT,"The default interactive shell is now zsh.
 To update your account to use zsh, please run `chsh -s /bin/zsh`.
 For more details, please visit https://support.apple.com/kb/HT208050.
@@ -5664,7 +5664,7 @@ Then add files and commit.
 - If changes aren’t detected, you may be in the wrong directory.
 
 6. zsh note
-- The shell message is just suggesting switching to zsh using chsh -s /bin/zsh.",False,Answer Clarification,Answer Clarification,Not Clear,Not Clear,gpt,,,,,,,,,,
+- The shell message is just suggesting switching to zsh using chsh -s /bin/zsh.",False,Answer Clarification,Answer Clarification,Not Clear,Not Clear,gpt,,,,5,5,5,,,30,1.0
 D76.json,D76,1,GPT,"The default interactive shell is now zsh.
 To update your account to use zsh, please run `chsh -s /bin/zsh`.
 For more details, please visit https://support.apple.com/kb/HT208050.
@@ -5683,7 +5683,7 @@ To fix it:
 3. If not present, add it
 4. Or run npm run to see available scripts
 
-Also make sure you're in the correct project directory where package.json exists.",False,Debugging / Error Fixing,Debugging / Error Fixing,Not Clear,Not Clear,gpt,,,,,,,,,,
+Also make sure you're in the correct project directory where package.json exists.",False,Debugging / Error Fixing,Debugging / Error Fixing,Not Clear,Not Clear,gpt,,,,5,5,5,,,30,1.0
 D76.json,D76,2,GPT,"npm run shows:
 dev -> node backend/server.js
 
@@ -5707,7 +5707,7 @@ Fix options:
 
 Then restart npm run dev.
 
-Also ensure only one app.listen(5000) exists.",False,Debugging / Error Fixing,Debugging / Error Fixing,Project/Research Support,Project/Research Support,gpt,,,,,,,,,,
+Also ensure only one app.listen(5000) exists.",False,Debugging / Error Fixing,Debugging / Error Fixing,Project/Research Support,Project/Research Support,gpt,,,,5,5,4,,,27,0.875
 D76.json,D76,3,GPT,Process on port 5000 killed but still getting EADDRINUSE error,"If killing the process didn’t work, try:
 
 1. Confirm again:
@@ -5726,7 +5726,7 @@ D76.json,D76,3,GPT,Process on port 5000 killed but still getting EADDRINUSE erro
 
 5. Restart machine if zombie process persists
 
-Most likely something is still bound to :::5000 or server is being started twice.",False,Debugging / Error Fixing,Debugging / Error Fixing,Not Clear,Not Clear,gpt,,,,,,,,,,
+Most likely something is still bound to :::5000 or server is being started twice.",False,Debugging / Error Fixing,Debugging / Error Fixing,Not Clear,Not Clear,gpt,,,,5,5,4,,,27,0.875
 D77.json,D77,1,GPT,"Last login: Tue Feb  4 21:06:58 on ttys000
 
 The default interactive shell is now zsh.
@@ -5804,7 +5804,7 @@ No analytics data has been sent yet (nor will any be during this install run).
     https://docs.brew.sh
 
 (base) Lexuss-MacBook-Pro:~ chenlingzhi$ brew install mongodb-community
--bash: brew: command not found","Homebrew installed successfully but PATH not set. You need to add `eval ""$(/opt/homebrew/bin/brew shellenv)""` to your shell config (.zshrc or .bash_profile), then reload shell. After that `brew` will work and you can install mongodb-community.",False,Answer Clarification,Answer Clarification,Not Clear,Not Clear,gpt,,,,,,,,,,
+-bash: brew: command not found","Homebrew installed successfully but PATH not set. You need to add `eval ""$(/opt/homebrew/bin/brew shellenv)""` to your shell config (.zshrc or .bash_profile), then reload shell. After that `brew` will work and you can install mongodb-community.",False,Answer Clarification,Answer Clarification,Not Clear,Not Clear,gpt,,,,5,5,5,,,30,1.0
 D78.json,D78,1,GPT,"solve the 1st order pde: u_x + 2u_y = u^2 given initial condition u(x,0)=h(x)","We solve using the method of characteristics.
 
 PDE: u_x + 2u_y = u^2, with u(x,0)=h(x).
@@ -5846,7 +5846,7 @@ u(x,y) = h(x - y/2) / (1 - (y/2) h(x - y/2)).
 
 Final answer:
 
-u(x,y) = \frac{h(x - y/2)}{1 - (y/2)h(x - y/2)}.",False,Direct Answer Generation,Direct Answer Generation,Assignment Help,Assignment Help,gpt,,,,,,,,,,
+u(x,y) = \frac{h(x - y/2)}{1 - (y/2)h(x - y/2)}.",False,Direct Answer Generation,Direct Answer Generation,Assignment Help,Assignment Help,gpt,,,,5,5,4,,,27,0.875
 D81.json,D81,1,GPT,Prove or disprove: every connected graph with n vertices and n−1 edges is a tree.,"The statement is **true**.
 
 Recall the definition:
@@ -5892,7 +5892,7 @@ Hence \(G\) is a tree.
 
 \[
 \boxed{\text{Every connected graph with } n \text{ vertices and } n-1 \text{ edges is a tree.}}
-\]",False,Answer Clarification,Answer Clarification,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+\]",False,Answer Clarification,Answer Clarification,Lecture Learning,Lecture Learning,gpt,,,,4,5,4,,,25,0.7917
 D82.json,D82,1,GPT,"What is the worst-case time complexity of inserting n elements into a binary heap one at a time, and why?","The **worst-case time complexity** of inserting \( n \) elements into a binary heap **one at a time** is:
 
 \[
@@ -5932,7 +5932,7 @@ There is also a faster method called **build-heap** (Floyd’s algorithm), which
 O(n)
 \]
 
-But that is **not** the same as inserting elements one by one.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+But that is **not** the same as inserting elements one by one.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,3,3,3,,,18,0.5
 D82.json,D82,2,GPT,Can you elaborate more,"Absolutely. Let’s break it down carefully and build the intuition step by step.
 
 ---
@@ -6198,7 +6198,7 @@ So:
 
 \[
 O(\log n) \times n = O(n \log n)
-\]",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+\]",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,5,,,30,1.0
 D83.json,D83,1,GPT,Explain the difference between stack memory and heap memory in a programming language like Java or C++.,"In languages like Java and C++, memory is generally divided into two major regions: **stack memory** and **heap memory**. They serve different purposes and behave very differently.
 
 ---
@@ -6465,7 +6465,7 @@ Understanding stack vs heap helps explain:
 - segmentation faults
 - ownership models in C++
 
-This distinction is foundational in systems programming and interview questions.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+This distinction is foundational in systems programming and interview questions.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,5,,,30,1.0
 D85.json,D85,1,GPT,Let A be a 3×3 matrix with det(A)=5. What is det(2A)?,"The statement is **true**.
 
 Recall the definition:
@@ -6511,7 +6511,7 @@ Hence \(G\) is a tree.
 
 \[
 \boxed{\text{Every connected graph with } n \text{ vertices and } n-1 \text{ edges is a tree.}}
-\]",False,Answer Clarification,Answer Clarification,Not Clear,Not Clear,gpt,,,,,,,,,,
+\]",False,Answer Clarification,Answer Clarification,Not Clear,Not Clear,gpt,,,,1,1,1,,,6,0.0
 D85.json,D85,2,GPT,CAN YOU ELABORATE MORE,"Absolutely — the key idea is that the determinant measures how a matrix scales volume.
 
 For a \(3 \times 3\) matrix:
@@ -6595,7 +6595,7 @@ For any \(n \times n\) matrix,
 
 where:
 - \(c\) is a scalar
-- \(n\) is the size of the matrix.",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,,,,,,,
+- \(n\) is the size of the matrix.",False,Concept Explanation,Concept Explanation,Not Clear,Not Clear,gpt,,,,4,5,4,,,25,0.7917
 D86.json,D86,1,GPT,Write a recursive algorithm to compute the n-th Fibonacci number and analyze its runtime.,"A classic recursive algorithm for computing the \(n\)-th Fibonacci number is based directly on the mathematical definition:
 
 \[
@@ -6733,7 +6733,7 @@ due to the call stack.
 | Time Complexity | \(O(2^n)\) |
 | Space Complexity | \(O(n)\) |
 
-This recursive approach is elegant and easy to understand, but inefficient for large \(n\). Dynamic programming or iteration can reduce the runtime to \(O(n)\).",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+This recursive approach is elegant and easy to understand, but inefficient for large \(n\). Dynamic programming or iteration can reduce the runtime to \(O(n)\).",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,4,,,27,0.875
 D87.json,D87,1,GPT,What is the difference between supervised learning and unsupervised learning in machine learning?,"In machine learning, the main difference between supervised learning and unsupervised learning is whether the training data comes with correct answers (labels).
 
 # Supervised Learning
@@ -6862,7 +6862,7 @@ You are simply given a pile of information and must organize it yourself into me
 # Short Summary
 
 - Supervised learning learns from data with known answers.
-- Unsupervised learning finds hidden structure in unlabeled data.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+- Unsupervised learning finds hidden structure in unlabeled data.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,5,,,30,1.0
 D87.json,D87,2,GPT,what are some applications,"Here are some common real-world applications of both supervised and unsupervised learning.
 
 # Applications of Supervised Learning
@@ -6997,7 +6997,7 @@ For example:
 - large language models
 - recommendation engines
 
-often rely on multiple learning strategies together.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+often rely on multiple learning strategies together.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,3,,,24,0.75
 D88.json,D88,1,GPT,Suppose a language L is regular. What operations preserve regularity?,"If a language \(L\) is regular, then many operations on \(L\) produce another language that is also regular. These are called **closure properties** of regular languages.
 
 Here are the main operations that preserve regularity:
@@ -7192,7 +7192,7 @@ Operations preserve regularity when the resulting language can still be recogniz
 | Kleene Star | Yes |
 | Reversal | Yes |
 | Homomorphism | Yes |
-| Inverse Homomorphism | Yes |",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+| Inverse Homomorphism | Yes |",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,4,,,27,0.875
 D89.json,D89,1,GPT,"Explain the difference between depth-first search and breadth-first search, including one practical use case for each.","Both **Depth-First Search (DFS)** and **Breadth-First Search (BFS)** are fundamental graph traversal algorithms used to explore nodes and edges in graphs or trees. The key difference is *how* they explore the structure.
 
 ---
@@ -7333,7 +7333,7 @@ For example, build systems and course prerequisite planners use DFS-based topolo
 # Intuition
 
 - **BFS** is like ripples spreading outward in water.
-- **DFS** is like exploring one hallway in a maze until you hit a dead end.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+- **DFS** is like exploring one hallway in a maze until you hit a dead end.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,4,5,4,,,25,0.7917
 D90.json,D90,1,GPT,"What is deadlock in operating systems, and what are the four necessary conditions for deadlock to occur?","A deadlock in an operating system occurs when a group of processes become permanently blocked because each process is waiting for a resource that is being held by another process in the group.
 
 In other words, none of the processes can continue because they are all waiting on each other indefinitely.
@@ -7405,7 +7405,7 @@ For example:
 | Mutual Exclusion | Resources are non-shareable |
 | Hold and Wait | Processes hold resources while requesting more |
 | No Preemption | Resources cannot be forcibly removed |
-| Circular Wait | Processes form a waiting cycle |",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+| Circular Wait | Processes form a waiting cycle |",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,4,5,4,,,25,0.7917
 D91.json,D91,1,GPT,Design a finite automaton that accepts all binary strings ending in “101”.,"A deterministic finite automaton (DFA) that accepts all binary strings ending in `""101""` keeps track of how much of the suffix `""101""` has been matched so far.
 
 ## States
@@ -7488,7 +7488,7 @@ Rejected strings:
 - `111`
 - `1001`
 
-Because none of these end with `""101""`.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+Because none of these end with `""101""`.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,5,,,30,1.0
 D92.json,D92,1,GPT,"Let f(x)=x 
 3
  −3x+1. Find all critical points and determine whether they are local maxima, minima, or neither.","We are given the function
@@ -7617,7 +7617,7 @@ So the local minimum point is
 
 - Classification:
   - \(\boxed{(-1,3)}\) is a **local maximum**
-  - \(\boxed{(1,-1)}\) is a **local minimum**",False,Step-by-Step Guidance,Step-by-Step Guidance,Assignment Help,Assignment Help,gpt,,,,,,,,,,
+  - \(\boxed{(1,-1)}\) is a **local minimum**",False,Step-by-Step Guidance,Step-by-Step Guidance,Assignment Help,Assignment Help,gpt,,,,5,5,5,,,30,1.0
 D93.json,D93,1,GPT,Prove that the set of rational numbers is countable.,"To prove that the set of rational numbers \(\mathbb{Q}\) is countable, we need to show that there exists a one-to-one correspondence (bijection) between \(\mathbb{Q}\) and \(\mathbb{N}\) (the natural numbers), or at least that \(\mathbb{Q}\) can be listed in a sequence.
 
 ---
@@ -7686,7 +7686,7 @@ Even though rationals seem dense (there are infinitely many between any two numb
 0,\; 1,\; -1,\; \tfrac{1}{2},\; -\tfrac{1}{2},\; \tfrac{2}{1},\; -2,\; \tfrac{1}{3},\dots
 \]
 
-So they are “infinite but not too large”—they have the same size as \(\mathbb{N}\).",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+So they are “infinite but not too large”—they have the same size as \(\mathbb{N}\).",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,5,,,30,1.0
 D94.json,D94,1,GPT,"Compare merge sort and quicksort in terms of runtime, memory usage, and practical performance.","Both **merge sort** and **quicksort** are classic divide-and-conquer sorting algorithms with average runtime \(O(n \log n)\), but they differ significantly in memory usage, worst-case behavior, and practical efficiency.
 
 # 1. Basic Idea
@@ -7876,7 +7876,7 @@ Merge sort works very well for data stored on disk because merging sequential fi
 
 That’s why:
 - merge sort is favored when guarantees matter,
-- quicksort is favored for fast in-memory sorting of arrays.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+- quicksort is favored for fast in-memory sorting of arrays.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,4,,,27,0.875
 D95.json,D95,1,GPT,"Explain the difference between TCP and UDP, including one situation where each is preferred.","TCP (Transmission Control Protocol) and UDP (User Datagram Protocol) are two core transport-layer protocols used for sending data over networks, but they make different tradeoffs between reliability and speed.
 
 | Feature | TCP | UDP |
@@ -7929,7 +7929,7 @@ In a live video call, it is usually better to lose a few packets than to pause a
 
 ### Simple Analogy
 - **TCP** is like sending a certified package that requires confirmation and tracking.
-- **UDP** is like broadcasting announcements over a loudspeaker: fast, but no guarantee everyone hears every word.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+- **UDP** is like broadcasting announcements over a loudspeaker: fast, but no guarantee everyone hears every word.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,4,,,27,0.875
 D96.json,D96,1,GPT,"Use the Master Theorem to determine the asymptotic runtime of
 T(n)=3T(n/2)+n.","We are given the recurrence:
 
@@ -8017,7 +8017,7 @@ or approximately
 
 \[
 \boxed{T(n)=\Theta(n^{1.585})}
-\]",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+\]",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,5,,,30,1.0
 D97.json,D97,1,GPT,"Explain the difference between deterministic and nondeterministic finite automata (DFA vs NFA), and why they recognize the same class of languages.","A **deterministic finite automaton (DFA)** and a **nondeterministic finite automaton (NFA)** are both abstract machines used to recognize **regular languages**, but they differ in how transitions between states work.
 
 ---
@@ -8166,7 +8166,7 @@ The resulting DFA may have more states, but it recognizes the same language.
 - An NFA may have multiple possible transitions and ε-transitions.
 - NFAs appear more flexible, but they are not more powerful.
 - Every NFA can be converted into an equivalent DFA via subset construction.
-- Therefore, DFAs and NFAs recognize the same class of languages: the regular languages.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+- Therefore, DFAs and NFAs recognize the same class of languages: the regular languages.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,5,5,5,,,30,1.0
 D98.json,D98,1,GPT,"Suppose you have a balanced binary search tree containing n elements. What are the time complexities for search, insertion, and deletion, and why do they achieve those bounds? IM SO CONFUSED","A balanced binary search tree (BST) keeps its height proportional to log n, where n is the number of elements. Examples include AVL trees and Red-Black trees.
 
 That single fact — height = O(log n) — is the reason all the main operations are fast.
@@ -8302,4 +8302,4 @@ O(n)
 
 instead of O(log n).
 
-That’s exactly why balanced BSTs exist: they keep the height small.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,,,,,,,
+That’s exactly why balanced BSTs exist: they keep the height small.",False,Concept Explanation,Concept Explanation,Lecture Learning,Lecture Learning,gpt,,,,4,5,4,,,25,0.7917

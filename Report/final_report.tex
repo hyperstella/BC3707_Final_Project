@@ -352,9 +352,9 @@ For goal prediction, the full 162-row dataset was split 8:1:1 stratified by clas
 Task & Model & Acc. & Macro-F1 \\
 \midrule
 \multirow{3}{*}{\shortstack[l]{Goal\\(5-class)}}
-  & TF-IDF + LogReg        & \textbf{0.706} & 0.424 \\
-  & Sentence-MLP           & \textbf{0.706} & \textbf{0.465} \\
-  & TextCNN                & \textbf{0.706} & 0.300 \\
+  & TF-IDF + LogReg        & \textbf{0.706} & \textbf{0.531} \\
+  & Sentence-MLP           & \textbf{0.706} & 0.524 \\
+  & TextCNN                & 0.588 & 0.217 \\
 \midrule
 \multirow{3}{*}{\shortstack[l]{Satisfaction\\(3-class)}}
   & TF-IDF + LogReg        & \textbf{0.578} & \textbf{0.525} \\
@@ -366,7 +366,7 @@ Task & Model & Acc. & Macro-F1 \\
 \label{tab:clf-results}
 \end{table}
 
-For goal prediction, all three models achieve 70.6\% accuracy, outperforming the majority baseline of 58.8\% by 11.8 percentage points. The Sentence-MLP achieves the highest macro-F1 (0.465), indicating it is the most balanced across the five classes. TF-IDF and Sentence-MLP both correctly classify Answer Clarification and Concept Explanation well, while Debugging/Error Fixing and Direct Answer Generation remain difficult due to their small class sizes. TextCNN achieves competitive accuracy but lower macro-F1 (0.300), suggesting it tends to favour the majority class.
+For goal prediction, TF-IDF and Sentence-MLP both achieve 70.6\% accuracy, outperforming the majority baseline of 58.8\% by 11.8 percentage points. Adding GPT-scored response quality features (coherence, correctness, guidance) meaningfully improved macro-F1 for both models — TF-IDF reaching 0.531 and Sentence-MLP 0.524 — indicating that quality scores help distinguish minority classes beyond what text alone can capture. TF-IDF achieves the best macro-F1 (0.531) and correctly classifies Debugging/Error Fixing with perfect precision and recall. TextCNN, which uses text only and cannot leverage quality scores, drops to 58.8\% accuracy and macro-F1 of 0.217, collapsing largely to the majority class.
 
 For satisfaction prediction, TF-IDF with logistic regression achieves the highest accuracy (57.8\%) and macro-F1 (0.525), both above the 54.7\% majority baseline. The simpler TF-IDF model outperforming neural alternatives is expected when training data is scarce: n-gram features generalise more directly from short text than learned representations, which require more examples. TextCNN's low macro-F1 (0.298) despite reasonable accuracy reveals class collapse — it predominantly predicts the majority class (neutral).
 
