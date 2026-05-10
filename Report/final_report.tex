@@ -437,6 +437,66 @@ Figures~\ref{fig:goal-cms} and~\ref{fig:sat-cms} show the confusion matrices for
 \label{fig:sat-cms}
 \end{figure*}
 
+\subsection{Repair Outcome Distribution and LLM Repair Behavior}
+
+To study how LLMs handle student confusion across multiple turns, we analyzed all 64 follow-up exchanges (turn\,id\,$\geq$\,2) drawn from the 33 multi-turn conversations in our dataset. For each exchange, GPT-4o-mini classified (1) a single \emph{repair outcome} and (2) zero or more \emph{repair behaviors} from a predefined taxonomy.
+
+\paragraph{Repair outcome} was classified into one of four categories: \emph{Successful Repair} (the LLM's follow-up response clearly resolves the confusion), \emph{Partial Repair} (confusion is addressed but gaps remain), \emph{Failed Repair} (the LLM repeats itself without meaningfully helping), or \emph{Repeated Misconception} (the LLM reinforces an error).
+
+\paragraph{Repair behavior} was tagged with any applicable subset of six strategies: Changed strategy after follow-up; Used simplification; Used step-by-step structure; Used analogy or visual explanation; Used concrete example; Student showed further confusion afterward.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lcc}
+\toprule
+Repair Outcome & Count & \% \\
+\midrule
+Successful Repair       & 37 & 57.8\% \\
+Partial Repair          & 24 & 37.5\% \\
+Failed Repair           &  3 &  4.7\% \\
+Repeated Misconception  &  0 &  0.0\% \\
+\bottomrule
+\end{tabular}
+\caption{Repair outcome distribution across 64 follow-up turns.}
+\label{tab:repair-outcomes}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lcc}
+\toprule
+Repair Behavior & Count & \% \\
+\midrule
+Changed strategy after follow-up       & 42 & 65.6\% \\
+Used step-by-step structure            & 32 & 50.0\% \\
+Used concrete example                  & 20 & 31.2\% \\
+Used simplification                    & 16 & 25.0\% \\
+Further confusion afterward            &  2 &  3.1\% \\
+Used analogy or visual explanation     &  2 &  3.1\% \\
+\bottomrule
+\end{tabular}
+\caption{Repair behavior frequency ($n=64$; multiple tags per exchange allowed).}
+\label{tab:repair-behaviors}
+\end{table}
+
+As shown in Tables~\ref{tab:repair-outcomes} and~\ref{tab:repair-behaviors} and Figure~\ref{fig:repair}, the results indicate that LLMs successfully repair student confusion in a majority of follow-up exchanges (57.8\%), with partial resolution in an additional 37.5\%. Outright failure is rare (4.7\%), and no instance of a reinforced misconception was observed. The most common repair strategy is changing the explanatory approach after a follow-up (65.6\%), followed by imposing step-by-step structure (50.0\%) and providing a concrete example (31.2\%). Simplification is used in one quarter of exchanges. Analogy or visual explanation and persistent student confusion are both uncommon (3.1\%), suggesting that most students either resolve their confusion after a single repair attempt or disengage rather than continue the conversation.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{figures/repair_outcomes.png}
+\caption{Repair outcome distribution across 64 follow-up turns.}
+\label{fig:repair-outcomes}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{figures/repair_behaviors.png}
+\caption{Repair behavior frequency (multiple tags allowed per exchange).}
+\label{fig:repair}
+\end{figure}
+
 \subsection{Limitations}
 
 The goal classification test set contains a mix of human-annotated and GPT-labeled turns, since the 8:1:1 split was applied to the full 162-row dataset. While GPT-4o-mini is a reliable labeler for intent classification tasks, this means evaluation is partially against silver-standard rather than gold-standard labels. For satisfaction prediction, LOOCV is applied solely over the 64 human-annotated turns, making that evaluation fully grounded in human judgement. Additionally, Debugging/Error Fixing and Direct Answer Generation remain underrepresented even after GPT-assisted labeling, limiting per-class performance on those categories.

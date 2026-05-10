@@ -1,0 +1,65 @@
+file,conv_id,turn_id,label_source,repair_outcome,repair_behaviors
+D12_NeuralNetworkQ1_graded_GPT.json,D12_NeuralNetworkQ1,2,human,Partial Repair,Changed strategy after follow-up; Used simplification
+D14_DiscreteQ3_(with_annotation).json,14,2,human,Partial Repair,
+D14_DiscreteQ3_(with_annotation).json,14,3,human,Partial Repair,Changed strategy after follow-up; Used step-by-step structure
+D14_DiscreteQ3_(with_annotation).json,14,4,human,Partial Repair,Changed strategy after follow-up; Used simplification
+D14_DiscreteQ3_(with_annotation).json,14,5,human,Successful Repair,Changed strategy after follow-up; Used step-by-step structure; Used concrete example
+D14_DiscreteQ3_(with_annotation).json,14,6,human,Partial Repair,Changed strategy after follow-up; Used step-by-step structure; Used concrete example; Student showed further confusion afterward
+D15_DataScienceQ1_graded_GPT.json,15,2,human,Successful Repair,Changed strategy after follow-up; Used simplification; Used step-by-step structure
+D15_DataScienceQ1_graded_GPT.json,15,3,human,Successful Repair,Used concrete example
+D16_Calc3Q1_graded.json,16,2,human,Successful Repair,Changed strategy after follow-up; Used simplification; Used analogy or visual explanation
+D16_Calc3Q1_graded.json,16,3,human,Partial Repair,Changed strategy after follow-up
+D16_Calc3Q1_graded.json,16,4,human,Partial Repair,Changed strategy after follow-up; Used step-by-step structure
+D17_Calc3Q2_graded_GPT.json,17,2,human,Partial Repair,Changed strategy after follow-up; Used step-by-step structure
+D17_Calc3Q2_graded_GPT.json,17,3,human,Partial Repair,Changed strategy after follow-up; Used step-by-step structure
+D17_Calc3Q2_graded_GPT.json,17,4,human,Partial Repair,Changed strategy after follow-up; Used simplification
+D17_Calc3Q2_graded_GPT.json,17,5,human,Partial Repair,Changed strategy after follow-up; Used simplification; Used step-by-step structure
+D17_Calc3Q2_graded_GPT.json,17,6,human,Successful Repair,Changed strategy after follow-up; Used simplification
+D17_Calc3Q2_graded_GPT.json,17,7,human,Partial Repair,Changed strategy after follow-up; Used step-by-step structure
+D19_DiscreteQ5_graded_GPT.json,19,2,human,Successful Repair,Changed strategy after follow-up; Used simplification
+D20_Calc3Q3_graded_GPT.json,20,2,human,Partial Repair,Changed strategy after follow-up; Used simplification
+D20_Calc3Q3_graded_GPT.json,20,3,human,Successful Repair,Changed strategy after follow-up; Used analogy or visual explanation; Used concrete example
+D24.json,24,2,gpt,Successful Repair,Used concrete example
+D37_ungraded.json,D37,2,gpt,Successful Repair,Used step-by-step structure; Used simplification
+D37_ungraded.json,D37,3,gpt,Partial Repair,Changed strategy after follow-up; Used step-by-step structure; Used concrete example; Student showed further confusion afterward
+D37_ungraded.json,D37,4,gpt,Successful Repair,
+D37_ungraded.json,D37,5,gpt,Partial Repair,Used concrete example; Changed strategy after follow-up
+D38_ungraded.json,D38,2,gpt,Successful Repair,Changed strategy after follow-up; Used step-by-step structure; Used concrete example
+D38_ungraded.json,D38,3,gpt,Successful Repair,Changed strategy after follow-up; Used simplification; Used step-by-step structure
+D41_ungraded.json,D41,2,gpt,Successful Repair,Used concrete example
+D41_ungraded.json,D41,3,gpt,Successful Repair,Changed strategy after follow-up; Used step-by-step structure
+D41_ungraded.json,D41,4,gpt,Successful Repair,Changed strategy after follow-up; Used step-by-step structure
+D42_ungraded.json,D42,2,gpt,Successful Repair,Changed strategy after follow-up; Used simplification
+D43_ungraded.json,D43,2,gpt,Successful Repair,Used step-by-step structure; Used concrete example
+D43_ungraded.json,D43,3,gpt,Partial Repair,Used step-by-step structure
+D43_ungraded.json,D43,4,gpt,Successful Repair,Changed strategy after follow-up; Used step-by-step structure
+D44_ungraded.json,D44,2,gpt,Partial Repair,Changed strategy after follow-up; Used simplification
+D45_ungraded.json,D45,2,gpt,Successful Repair,Changed strategy after follow-up; Used simplification
+D45_ungraded.json,D45,3,gpt,Partial Repair,Changed strategy after follow-up; Used step-by-step structure
+D45_ungraded.json,D45,4,gpt,Successful Repair,Used concrete example
+D51_ungraded.json,D51,2,gpt,Successful Repair,Used step-by-step structure; Used concrete example
+D52_ungraded.json,D52,2,gpt,Successful Repair,Used step-by-step structure
+D52_ungraded.json,D52,3,gpt,Successful Repair,Changed strategy after follow-up; Used step-by-step structure
+D52_ungraded.json,D52,4,gpt,Successful Repair,Changed strategy after follow-up; Used step-by-step structure
+D52_ungraded.json,D52,5,gpt,Partial Repair,Changed strategy after follow-up; Used step-by-step structure
+D52_ungraded.json,D52,6,gpt,Partial Repair,Changed strategy after follow-up; Used concrete example
+D52_ungraded.json,D52,7,gpt,Successful Repair,Used concrete example; Changed strategy after follow-up
+D52_ungraded.json,D52,8,gpt,Successful Repair,Used step-by-step structure
+D54_ungraded.json,D54,2,gpt,Successful Repair,Changed strategy after follow-up; Used concrete example
+D55_ungraded.json,D55,2,gpt,Successful Repair,Used concrete example
+D56_ungraded.json,D56,2,gpt,Successful Repair,Used concrete example
+D57_ungraded.json,D57,2,gpt,Partial Repair,Changed strategy after follow-up; Used step-by-step structure; Used simplification
+D58_ungraded.json,D58,2,gpt,Successful Repair,
+D58_ungraded.json,D58,3,gpt,Partial Repair,Changed strategy after follow-up; Used step-by-step structure
+D59_ungraded.json,D59,2,gpt,Successful Repair,Changed strategy after follow-up; Used step-by-step structure
+D59_ungraded.json,D59,3,gpt,Failed Repair,
+D68.json,D68,2,gpt,Successful Repair,Used concrete example
+D69.json,D69,2,gpt,Successful Repair,Changed strategy after follow-up; Used concrete example
+D70.json,D70,2,gpt,Partial Repair,Changed strategy after follow-up; Used simplification
+D71.json,D71,2,gpt,Successful Repair,Used step-by-step structure
+D74.json,D74,2,gpt,Failed Repair,
+D76.json,D76,2,gpt,Successful Repair,Used step-by-step structure
+D76.json,D76,3,gpt,Successful Repair,Used step-by-step structure
+D82.json,D82,2,gpt,Partial Repair,Changed strategy after follow-up; Used step-by-step structure
+D85.json,D85,2,gpt,Failed Repair,
+D87.json,D87,2,gpt,Successful Repair,Changed strategy after follow-up; Used concrete example
