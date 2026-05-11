@@ -484,15 +484,37 @@ Building on these strands of work, our project focuses specifically on authentic
 
 \section{Conclusion}
 
-In this project, we build a dataset of authentic student--LLM tutoring dialogues focused on Computer Science and Mathematics learning. Motivated by the growing use of LLMs as informal educational tools, our project studies how students naturally interact with these systems and whether LLM responses provide meaningful pedagogical support beyond correctness alone.
+In this project, we build a dataset of authentic student--LLM tutoring dialogues focused on Computer Science and Mathematics learning contexts. Motivated by the growing use of LLMs as informal educational tools, our project studies how students naturally interact with these systems and whether LLM responses provide meaningful pedagogical support beyond simply generating correct answers.
 
-Our analyses show that Concept Explanation is the dominant learning goal, while Lecture Learning is the most common scenario. Prompt quality and response quality show only a weak positive correlation, suggesting that modern LLMs can often generate coherent and helpful responses even when student prompts are moderately specified. In classification experiments, TF-IDF and Sentence-MLP outperform the majority baseline for goal prediction, and adding pedagogical quality scores improves macro-F1. Our repair analysis further shows that LLMs often address student confusion successfully, most commonly by changing explanation strategy, using step-by-step structure, and providing concrete examples.
+Our analyses reveal several notable findings. Concept Explanation dominates student learning goals (59\%), and Lecture Learning is the most common scenario (46\%), suggesting that students primarily use LLMs to strengthen conceptual understanding rather than request direct answers. Prompt quality and response quality show only a weak positive correlation ($r = 0.228$), indicating that modern LLMs are relatively robust to underspecified prompts. In classification experiments, TF-IDF and Sentence-MLP outperform the majority baseline for goal prediction, and incorporating pedagogical quality scores improves macro-F1, highlighting the value of pedagogical evaluation signals beyond surface-level text features alone. Our repair analysis further shows that LLMs successfully resolve student confusion in most follow-up exchanges, primarily by changing explanation strategies, applying step-by-step structure, and providing concrete examples.
 
-The project has several limitations. The dataset is relatively small, especially for supervised classification, and some evaluations rely partly on GPT-labeled silver-standard annotations rather than fully human-validated labels. The dataset also primarily contains English-language dialogues from Columbia and Barnard students, so it may not capture tutoring patterns across broader linguistic, cultural, or educational contexts. Annotation subjectivity remains another challenge, especially for scoring guidance quality and pedagogical usefulness.
+\subsection{Limitations}
 
-Future work could expand the dataset across more institutions, languages, and student populations; increase the number of human annotators; measure inter-annotator agreement; and compare LLM systems more systematically. Additional work could also explore prompting or fine-tuning methods for improving pedagogical tutoring behavior.
+\begin{itemize}
+    \item \textbf{Dataset size and class imbalance.} The dataset contains only 162 labeled turns, including 64 human-annotated turns, limiting classifier reliability and reducing performance on minority categories such as Debugging/Error Fixing and Direct Answer Generation. The relatively small test set also makes some evaluation metrics sensitive to individual predictions.
 
-Overall, this project contributes a real-world dataset and pedagogically grounded analysis framework for studying LLM tutoring behavior in authentic educational settings, laying a foundation for future research on more effective, reliable, and student-centered AI tutoring systems.
+    \item \textbf{Silver-standard annotation quality.} Most labels were generated using GPT-4o-mini few-shot prompting rather than human annotation. Preliminary experiments suggest that GPT-based annotators may assign inflated scores to LLM responses, meaning some evaluations rely partly on silver-standard rather than fully human-validated labels.
+
+    \item \textbf{Annotation subjectivity.} Dimensions such as Guidance Quality and pedagogical usefulness involve subjective judgement, and the project does not currently measure inter-annotator agreement across annotators.
+
+    \item \textbf{Limited population and linguistic diversity.} The dataset consists only of English-language dialogues collected from students at Columbia University and Barnard College, limiting broader generalizability across institutions, disciplines, languages, and cultural learning contexts.
+\end{itemize}
+
+\subsection{Future Work}
+
+\begin{itemize}
+    \item \textbf{Dataset expansion.} Future work should collect dialogues from more institutions, disciplines, languages, and student populations while substantially increasing the number of human-annotated examples.
+
+    \item \textbf{Improved annotation quality.} Future work should establish formal inter-annotator agreement protocols and reduce reliance on GPT-generated silver annotations by incorporating multiple human annotators and adjudication procedures.
+
+    \item \textbf{Stronger classification models.} Larger datasets would enable the use of more expressive transformer-based models and multi-task learning approaches across goal prediction, satisfaction prediction, and repair outcome classification.
+
+    \item \textbf{Improving tutoring behavior.} Future research could use the annotation framework developed here to fine-tune or prompt LLMs toward more pedagogically effective tutoring strategies that better support independent problem-solving and conceptual understanding.
+\end{itemize}
+
+\subsection{Broader Impact}
+
+Overall, this project contributes a real-world dataset and pedagogically grounded analysis framework for studying LLM tutoring behavior in authentic educational settings. As LLMs become increasingly integrated into student learning workflows, understanding how they support conceptual understanding and multi-turn learning interactions becomes increasingly important. The annotation framework, quality scoring rubric, and repair behavior taxonomy developed in this work provide a foundation for future research on more effective, reliable, and student-centered AI tutoring systems.
 
 \section{Contribution Statement}
 
@@ -504,5 +526,31 @@ Overall, this project contributes a real-world dataset and pedagogically grounde
 
 \bibliographystyle{abbrvnat}
 \bibliography{custom}
+
+
+\appendix
+
+\section*{Appendix: Code and Data}
+
+All code, data, and supplementary materials for this project are publicly available in the following GitHub repository:
+
+\begin{center}
+\url{https://github.com/hyperstella/BC3707_Final_Project}
+\end{center}
+
+The repository contains:
+
+\begin{itemize}
+    \item The full dataset of 100 annotated student--LLM tutoring dialogues in JSON format
+    \item Data processing and annotation scripts
+    \item Classification model implementations (TF-IDF, Sentence-MLP, TextCNN)
+    \item Analysis code for prompt-response quality correlation, repair behavior detection, and pedagogical strategy identification
+    \item Visualization scripts for all figures presented in this report
+    \item Documentation of the annotation framework and evaluation guidelines
+\end{itemize}
+
+We encourage researchers to build upon this work and welcome contributions to expand the dataset or improve the analysis methods.
+
+\end{document}
 
 \end{document}
